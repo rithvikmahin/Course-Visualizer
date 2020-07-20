@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import json
+import math
 
 PREREQ = 'prerequisite'
 NUMBER = 'number'
@@ -35,17 +36,20 @@ class CourseGraph():
             for requirements in data[PREREQ]:
                 for required_courses in data[PREREQ][requirements]:
                     #Creates a node for a prerequisite if it does not exist.
-                    if not self.graph.has_node(required_courses):
+                    #TODO: Remove AND statement later, only for testing
+                    if not self.graph.has_node(required_courses) and len(required_courses) <= 8:
                         self.graph.add_node(required_courses)
-
-                    edge = (required_courses, course)
-                    self.graph.add_edge(*edge)
+                    
+                    if len(required_courses) <= 8:
+                        edge = (required_courses, course)
+                        self.graph.add_edge(*edge)
 
 
 
 course_dict = json_to_dict("/home/rithvik/Course-Visualizer/Python/Courses.json")
 graph = CourseGraph(course_dict)
-nx.draw(graph.graph, node_size=1200, with_labels=True, font_size=6)
+pos = nx.spring_layout(graph.graph, k=1, iterations=200)
+nx.draw(graph.graph, pos=pos, node_size=500, with_labels=True, font_size=5)
 plt.plot()
 plt.savefig("Test.png")
 plt.show()
