@@ -1,4 +1,5 @@
 import networkx as nx
+from networkx.drawing.nx_agraph import graphviz_layout
 import matplotlib.pyplot as plt
 import json
 import math
@@ -41,15 +42,15 @@ class CourseGraph():
                         self.graph.add_node(required_courses)
                     
                     if len(required_courses) <= 8:
-                        edge = (required_courses, course)
+                        edge = (required_courses, data[NUMBER])
                         self.graph.add_edge(*edge)
 
 
 
 course_dict = json_to_dict("/home/rithvik/Course-Visualizer/Python/Courses.json")
 graph = CourseGraph(course_dict)
-pos = nx.spring_layout(graph.graph, k=1, iterations=200)
-nx.draw(graph.graph, pos=pos, node_size=500, with_labels=True, font_size=5)
-plt.plot()
+fig = plt.figure(figsize=(12,12))
+pos = graphviz_layout(graph.graph)
+nx.draw(graph.graph, pos=pos, node_size=250, arrowsize=3, with_labels=True, font_size=5)
 plt.savefig("Test.png")
 plt.show()

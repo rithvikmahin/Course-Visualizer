@@ -25,7 +25,7 @@ for course in course_list[1:]:
     course_info = course[1].split('Prerequisite:')
 
     course_dict = {
-        'number': course_details[0].strip(),
+        'number': course_details[0].strip().replace(' ',''),
         'name': course_details[1].strip(),
         'credits': course_details[2].replace('credit:', '').replace('Hour.', '').replace('Hours.', '').strip(),
         'description': course_info[0].strip(),
@@ -49,5 +49,5 @@ for course in course_list[1:]:
     course_dict['prerequisite'] = prereq_dict
     courses_dict[course_dict['number'].strip()] = course_dict
     
-with open('../json/Courses.json', 'w') as json_file:
+with open('./Python/Courses.json', 'w') as json_file:
     json.dump(courses_dict, json_file)
