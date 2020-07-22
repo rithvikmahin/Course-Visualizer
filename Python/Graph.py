@@ -54,3 +54,4 @@ pos = graphviz_layout(graph.graph)
 nx.draw(graph.graph, pos=pos, node_size=250, arrowsize=3, with_labels=True, font_size=5)
 plt.savefig("Test.png")
 plt.show()
+
