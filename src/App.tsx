@@ -1,25 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Component } from 'react';
 import cytoscape from 'cytoscape'
 
 
 
-function App() {
+class App extends Component {
 
-  useEffect(() => {
-    const Cytoscape = () => {
-      const graph = cytoscape();
-      graph.add({group: 'nodes',
-      data: { weight: 75 },
-      position: { x: 200, y: 200 }
-      })
-    }
-  })
+  Cytoscape(container: any) {
+    const graph = cytoscape({ container: container });
+    graph.add({group: 'nodes',
+    data: { weight: 75 },
+    position: { x: 200, y: 200 }
+    })
+  }
 
-  return (
-    <div>
+  componentDidMount() {
+    const container = document.getElementById('cytoscape');
+    this.Cytoscape(container);
+  }
 
-    </div>
-  );
+  render() {
+    const cyStyle = {
+      height: '1000px',
+      width: '1000px',
+      margin: '20px 0px'
+    };
+    return(<div style={cyStyle} id="cytoscape"></div>);
+  }
 }
 
 export default App;
