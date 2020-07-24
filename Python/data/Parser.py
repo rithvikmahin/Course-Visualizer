@@ -43,8 +43,6 @@ for course in course_list[1:]:
         #Adding each requisite to the JSON dictionary
         for i, value in enumerate(split_values):
             prereq_dict['req' + str(i + 1)] = value
-        print(split_values)
-        
         
     course_dict['prerequisite'] = prereq_dict
     courses_dict[course_dict['number'].strip()] = course_dict
