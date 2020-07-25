@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import cytoscape from 'cytoscape'
-import cydagre from 'cytoscape-dagre'
+import dagre from 'cytoscape-dagre'
+import avsdf from 'cytoscape-avsdf'
+import cola from 'cytoscape-cola'
+import klay from 'cytoscape-klay'
 import courses from "./json/Courses.json"
-
+//FORMATS: cydagre, cola, avsdf, klay
 //TODO: RE-ENABLE TS.CONFIG NOIMPLICITANY TO TRUE
 class App extends Component {
   /** TODO: Change 'any' types later, just for testing purposes */
   Cytoscape(container: any, courses: any) {
-    cytoscape.use(cydagre);
+    cytoscape.use(klay);
     const graph = cytoscape(
       { container: container,
 
@@ -25,12 +28,14 @@ class App extends Component {
 
     for (const course in courses) {
       /** TODO: Check if the course already exists */
-      graph.add({
-        group: 'nodes',
-        data: {
-          id: course
-        }
-      })
+      if (!(graph.filter(`node[id = "${course}"]`).length)) {
+        graph.add({
+          group: 'nodes',
+          data: {
+            id: course
+          }
+        }); 
+      }
       
       for (const requirements in courses[course][PREREQ]) {
         for (const required_course of courses[course][PREREQ][requirements]) {
@@ -38,18 +43,17 @@ class App extends Component {
           if (required_course.length > 8) {
             continue;
           }
-          //TODO: Remove try-catch, check if node already exists in the graph
-          try {
-          graph.add({
-            group: 'nodes',
-            data: {
-              id: required_course
-            }
-          }); 
-        } catch(e) {
-          console.log(e);
-        }
+          if (!(graph.filter(`node[id = "${required_course}"]`).length)) {
+            graph.add({
+              group: 'nodes',
+              data: {
+                id: required_course
+              }
+            }); 
+          }
 
+          // 
+          
         graph.add({
           group: 'edges',
           data: {
@@ -62,9 +66,10 @@ class App extends Component {
       }
     }
     const layout = graph.layout(
-      {name: 'dagre'}
+      {name: 'klay'}
     );
     layout.run();
+    graph.resize();
   }
 
   componentDidMount() {
@@ -74,8 +79,8 @@ class App extends Component {
 
   render() {
     const cyStyle = {
-      height: '750px',
-      width: '750px',
+      height: '1000px',
+      width: '2000px',
     };
     return(<div style={cyStyle} id="cytoscape"></div>);
   }

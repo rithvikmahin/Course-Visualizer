@@ -3,6 +3,10 @@ from bs4 import BeautifulSoup
 import re
 import json
 
+def replace_with_dict(text, mapping):
+    expr = re.compile("(%s)" % "|".join(map(re.escape, mapping.keys())))
+    return expr.sub(lamda x: mapping[x.string[x.start():x.end()]], text)
+
 # Parse catalog for course content
 catalog_url = 'http://catalog.illinois.edu/courses-of-instruction/cs/'
 request = urllib.urlopen(catalog_url).read()
@@ -47,5 +51,5 @@ for course in course_list[1:]:
     course_dict['prerequisite'] = prereq_dict
     courses_dict[course_dict['number'].strip()] = course_dict
     
-with open('./Python/Courses.json', 'w') as json_file:
+with open('../../src/json', 'w') as json_file:
     json.dump(courses_dict, json_file)
