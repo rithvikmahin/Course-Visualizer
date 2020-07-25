@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import cytoscape from 'cytoscape'
-import dagre from 'cytoscape-dagre'
-import avsdf from 'cytoscape-avsdf'
-import cola from 'cytoscape-cola'
 import klay from 'cytoscape-klay'
-import courses from "./json/Courses.json"
-//FORMATS: cydagre, cola, avsdf, klay
-//TODO: RE-ENABLE TS.CONFIG NOIMPLICITANY TO TRUE
-class App extends Component {
-  /** TODO: Change 'any' types later, just for testing purposes */
-  Cytoscape(container: any, courses: any) {
+import courses from './json/Courses.json'
+
+class Graph extends Component {
+  /** TODO: Ensure that container is not null */
+  /**
+   * @param container - The div DOM element containing the graph.
+   * @param courses - The JSON list of courses.
+   */
+  Cytoscape(container: HTMLElement | null, courses: object) {
+    const PREREQ = 'prerequisite';
+    
     cytoscape.use(klay);
+    //Defines graph properties
     const graph = cytoscape(
       { container: container,
-
         style: [
           {
             selector: 'node',
@@ -24,10 +26,9 @@ class App extends Component {
         ]
       });
     
-    const PREREQ = "prerequisite";
-
+    //Adds the current course as a node if it does not exist in the graph
     for (const course in courses) {
-      if (!(graph.filter(`node[id = "${course}"]`).length)) {
+      if (!(graph.filter(`node[id = '${course}']`).length)) {
         graph.add({
           group: 'nodes',
           data: {
@@ -35,16 +36,17 @@ class App extends Component {
           }
         }); 
       }
-      
+
       for (const requirements in courses[course][PREREQ]) {
         for (const required_course of courses[course][PREREQ][requirements]) {
+          //Removes junk course names that are not in the standard format
           const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
           if (!(regex_filter.test(required_course))) {
             console.log(required_course);
             continue;
           }
-          
-          if (!(graph.filter(`node[id = "${required_course}"]`).length)) {
+          //Adds the current prerequisites as nodes if they do not exist in the graph
+          if (!(graph.filter(`node[id = '${required_course}']`).length)) {
             graph.add({
               group: 'nodes',
               data: {
@@ -52,7 +54,7 @@ class App extends Component {
               }
             }); 
           }
-          
+        //Creates an edge between the requirements and the current course
         graph.add({
           group: 'edges',
           data: {
@@ -64,6 +66,7 @@ class App extends Component {
         }
       }
     }
+    //Assigns a layout and fits the graph to the screen
     const layout = graph.layout(
       {name: 'klay'}
     );
@@ -77,12 +80,13 @@ class App extends Component {
   }
 
   render() {
+    //Cytoscape graph styling
     const cyStyle = {
       height: '1000px',
       width: '2000px',
     };
-    return(<div style={cyStyle} id="cytoscape"></div>);
+    return(<div style={cyStyle} id='cytoscape'></div>);
   }
 }
 
-export default App;
+export default Graph;
