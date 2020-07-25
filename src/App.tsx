@@ -27,7 +27,6 @@ class App extends Component {
     const PREREQ = "prerequisite";
 
     for (const course in courses) {
-      /** TODO: Check if the course already exists */
       if (!(graph.filter(`node[id = "${course}"]`).length)) {
         graph.add({
           group: 'nodes',
@@ -39,10 +38,12 @@ class App extends Component {
       
       for (const requirements in courses[course][PREREQ]) {
         for (const required_course of courses[course][PREREQ][requirements]) {
-          //TODO: Remove later
-          if (required_course.length > 8) {
+          const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
+          if (!(regex_filter.test(required_course))) {
+            console.log(required_course);
             continue;
           }
+          
           if (!(graph.filter(`node[id = "${required_course}"]`).length)) {
             graph.add({
               group: 'nodes',
@@ -51,8 +52,6 @@ class App extends Component {
               }
             }); 
           }
-
-          // 
           
         graph.add({
           group: 'edges',
