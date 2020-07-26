@@ -41,7 +41,7 @@ def catalog_to_json(catalog_url: str = 'http://catalog.illinois.edu/courses-of-i
 
     # Find all course data
     courses = [i.text for i in soup.find(id='courseinventorycontainer').find_all('div')]
-    courseS_dict = get_course_dict(courses)
+    courses_dict = get_course_dict(courses)
 
     with open(output_dir, 'w') as json_file:
         json.dump(courses_dict, json_file)

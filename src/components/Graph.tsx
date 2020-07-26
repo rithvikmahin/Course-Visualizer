@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import cytoscape from 'cytoscape'
 import dagre from 'cytoscape-dagre'
-import courses from './json/Courses.json'
+import courses from '../json/Courses.json'
+import '../css/style.css'
+import Search from './Search'
 
 type AppProps = {}
+
 class Graph extends Component<AppProps, {container: HTMLElement | null}> {
 
   constructor(props: AppProps) {
@@ -139,7 +142,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null}> {
   }
 
   /**
-   * Centers the graph back to the center upon a button click.
+   * Shift the camera view of the graph back to the center upon a button click.
    */
   Fit() {
     const container = this.state.container;
@@ -151,24 +154,12 @@ class Graph extends Component<AppProps, {container: HTMLElement | null}> {
   }
 
   render() {
-    /** Cytoscape graph styling. */
-    const graph = {
-      height: '100vh',
-      width: '85vw',
-      background: '#202020',
-      flex: '0 0 85vw'
-    };
-    const search = {
-      height: '100vh',
-      background: '#151515',
-      flex: '1'
-    }
     return(
       <div>
         <div style={{display: 'flex'}}>
-          <div style={graph} id='cytoscape' />
-          <div style={search}>
-            <button onClick={this.Fit}>BUTTON</button>
+          <div className='graph' id='cytoscape' />
+          <div className='search'>
+            <Search />
           </div>
         </div>
       </div>

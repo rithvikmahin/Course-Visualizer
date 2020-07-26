@@ -46,4 +46,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # data
-src/json/Courses.json
+src/json
