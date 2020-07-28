@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import cytoscape from 'cytoscape'
 import dagre from 'cytoscape-dagre'
+/** TODO: Change import json */
 import courses from '../json/Courses.json'
 import '../css/style.css'
 import Search from './Search'
