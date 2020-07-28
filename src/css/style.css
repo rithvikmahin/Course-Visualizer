@@ -16,3 +16,7 @@
     background: grey;
     border-color: white;
 }
+
+.MuiAutocomplete-inputRoot[class*="MuiFilledInput-root"] .MuiAutocomplete-endAdornment {
+    visibility: hidden;
+}

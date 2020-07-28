@@ -9,7 +9,8 @@ function Search() {
         <SearchBar 
         options={data} 
         getOptionLabel={(data) => data.value}
-        renderInput={(params) => <TextField {...params} label='Search' color='primary' variant='filled'/>}/>
+        style={{width: 200}}
+        renderInput={(params) => <TextField {...params} label='Enter a course name' margin='none' variant='filled'/>}/>
     )
 }
 
