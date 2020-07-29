@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@types/node": "^14.0.26",
+    "@types/express-serve-static-core": "^4.17.9",
+    "@types/node": "^14.0.27",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "neo4j-driver": "^4.1.1"
@@ -16,7 +18,7 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.ts"
   },
   "author": "",
   "license": "ISC"

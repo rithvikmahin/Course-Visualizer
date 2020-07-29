@@ -57,7 +57,9 @@ async function Populate() {
     }
 }
 
-
+/**
+ * Retrieves the courses data from Neo4j.
+ */
 async function GetData() {
     const driver = neo4j.driver(
         'bolt://localhost',
@@ -65,9 +67,11 @@ async function GetData() {
     );
     const session = driver.session();
     let data = [];
+    
     try {
         await session.readTransaction(async txc => {
             const results = await txc.run(`MATCH (node) RETURN node`);
+            // Sets fields from the database object. 
             for (const record of results.records) {
                 let details = {number: '', name: '', description: '', credits: ''};
                 const field = record._fields[0];
@@ -77,6 +81,7 @@ async function GetData() {
                 details['number'] = properties.number.toInt();
                 details['description'] = properties.description;
                 details['credits'] = properties.credits;
+                //@ts-ignore
                 data.push(details);
             }
         });
@@ -86,3 +91,5 @@ async function GetData() {
         return data;
     }
 }
+
+module.exports.GetData = GetData;
