@@ -1,22 +1,41 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
 import SearchBar from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
+import { withStyles } from "@material-ui/core";
 import '../css/style.css'
 import data from '../json/Data.json'
 
+const styles = (theme: any) => ({
+    textField: {
+      marginLeft: theme.spacing.unit * 3,
+      marginBottom: '0px',
+    },
+    label: {
+      '&$focused': {
+        color: '#4A90E2'
+      },
+    },
+    focused: {},
+    outlinedInput: {
+      '&$focused $notchedOutline': {
+        border: '1px solid #4A90E2'
+      },
+    },
+    notchedOutline: {},
+  })
+
 function Search() {
-    useEffect(() => {
-        const data = axios.get('http://localhost:5000/courses').then(result => console.log(result));
-    });
 
     return (
-        <SearchBar 
-        options={data} 
-        getOptionLabel={(data) => data.value}
-        style={{width: 200}}
-        renderInput={(params) => <TextField {...params} label='Enter a course name' margin='none' variant='filled'/>}/>
+        <div className="searchbar">
+            <SearchBar 
+            options={data} 
+            getOptionLabel={(data) => data.value}
+            style={{width: '100%'}}
+
+    renderInput={(params) => <TextField {...params} label='Enter a course name' margin='none' variant='filled' color="secondary" />} />
+        </div>
     )
 }
 
-export default Search;
+export default withStyles(styles)(Search);

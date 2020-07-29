@@ -1,4 +1,5 @@
 import re
+import os
 import json
 import urllib.request as urllib
 from bs4 import BeautifulSoup
@@ -29,7 +30,7 @@ def replace_with_dict(text: str, mapping: dict):
     return expr.sub(lambda x: mapping[x.string[x.start():x.end()]], text)
 
 def catalog_to_json(catalog_url: str = 'http://catalog.illinois.edu/courses-of-instruction/cs/',
-                    output_dir: str = './neo4j/json/Courses.json'):
+                    output_dir: str = './backend/neo4j/json/Courses.json'):
     """Takes URL to course catalog and returns JSON with all necessary data.
 
     :param catalog_url: url of catalog data to retrieve
@@ -43,7 +44,7 @@ def catalog_to_json(catalog_url: str = 'http://catalog.illinois.edu/courses-of-i
     courses = [i.text for i in soup.find(id='courseinventorycontainer').find_all('div')]
     courses_dict = get_course_dict(courses)
 
-    with open(output_dir, 'w') as json_file:
+    with open(os.path.join(os.getcwd(), output_dir), 'w') as json_file:
         json.dump(courses_dict, json_file)
 
 def get_course_dict(courses: list):
@@ -67,7 +68,6 @@ def get_course_dict(courses: list):
         course_dict = {
             'number': course_details[0].replace(' ',''),
             'name': course_details[1],
-            'credits': '',
             'description': course_info[0],
         }
 
@@ -95,7 +95,7 @@ def get_course_dict(courses: list):
         course_dict['prerequisite'] = prereq_dict
         courses_dict[course_dict['number'].strip()] = course_dict
 
-    return course_dict
+    return courses_dict
 
 if __name__ == "__main__":
     catalog_to_json()

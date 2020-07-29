@@ -12,9 +12,12 @@
     text-align: center;
 }
 
+.searchbar {
+    background: #202020;
+}
+
 .MuiTextField-root {
     background: grey;
-    border-color: white;
 }
 
 .MuiAutocomplete-inputRoot[class*="MuiFilledInput-root"] .MuiAutocomplete-endAdornment {

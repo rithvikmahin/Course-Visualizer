@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
 import cytoscape from 'cytoscape'
 import dagre from 'cytoscape-dagre'
-/** TODO: Change import json */
-import courses from '../json/Courses.json'
+import axios from 'axios'
 import '../css/style.css'
 import Search from './Search'
 
 type AppProps = {}
-
-class Graph extends Component<AppProps, {container: HTMLElement | null}> {
+/** TODO: Change data any type  */
+class Graph extends Component<AppProps, {container: HTMLElement | null, data: any}> {
 
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      container: null
+      container: null,
+      data: null
     }
     this.Fit = this.Fit.bind(this);
   }
+
+  async componentDidMount() {
+    const data = await axios.get('http://localhost:5000/courses');
+    this.setState({ data: data.data });
+    console.log('Data ', this.state.data);
+    const container = document.getElementById('cytoscape');
+    this.Cytoscape(container as HTMLElement);
+    this.setState({ container: container });
+    /** TODO: Update URL */
+  }
+
   /** TODO: Change type any to object later */
   /**
    * @param container - The div DOM element containing the graph.
    * @param courses - The JSON list of courses.
    */
-  Cytoscape(container: HTMLElement, courses: { [key: string]: any }) {
+  Cytoscape(container: HTMLElement) {
     cytoscape.use(dagre);
     /** Defines graph properties. */
     let graph = cytoscape(
@@ -58,7 +69,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null}> {
           },
         ]
       });
-    
+    const courses = this.state.data;
     graph = this.GenerateGraph(graph, courses);
     /** Assigns a layout and fits the graph to the screen. */
     const nodeSpacing = 1.5;
@@ -91,7 +102,6 @@ class Graph extends Component<AppProps, {container: HTMLElement | null}> {
    * @return - The cytoscape graph with its nodes and edges added.
    */
   GenerateGraph(graph: cytoscape.Core, courses: { [key: string]: any }): cytoscape.Core {
-    const PREREQ: string = 'prerequisite';
     /** Adds the current course as a node if it does not exist in the graph. */
     for (const course in courses) {
       if (!(graph.filter(`node[id = '${course}']`).length)) {
@@ -103,8 +113,8 @@ class Graph extends Component<AppProps, {container: HTMLElement | null}> {
         }); 
       }
 
-      for (const requirements in courses[course][PREREQ]) {
-        for (const required_course of courses[course][PREREQ][requirements]) {
+      for (const requirements in courses[course]['prerequisite']) {
+        for (const required_course of courses[course]['prerequisite'][requirements]) {
           /** Removes junk course names that are not in the standard format. */
           /** TODO:  Remove Concurrent Registration or save it in another format. remove length > 8 */
           const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
@@ -136,19 +146,13 @@ class Graph extends Component<AppProps, {container: HTMLElement | null}> {
     return graph;
   }
 
-  componentDidMount() {
-    const container = document.getElementById('cytoscape');
-    this.Cytoscape(container as HTMLElement, courses);
-    this.setState({ container: container })
-  }
-
   /**
    * Shift the camera view of the graph back to the center upon a button click.
    */
   Fit() {
     const container = this.state.container;
     if (container) {
-      const graph = this.Cytoscape(container as HTMLElement, courses);
+      const graph = this.Cytoscape(container as HTMLElement);
       const elements = graph.elements();
       graph.fit(elements);
     }
@@ -161,6 +165,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null}> {
           <div className='graph' id='cytoscape' />
           <div className='search'>
             <Search />
+            <button onClick={() => console.log(this.state)}>CLICK</button>
           </div>
         </div>
       </div>

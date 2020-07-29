@@ -1,14 +1,14 @@
-//@ts-ignore
 const express = require('express');
-const data = require('/home/rithvik/Course-Visualizer/backend/neo4j/database.ts');
+const data = require('./neo4j/database.ts');
 const cors = require('cors');
 const app = express();
 
 app.get('/', (req, res) => {
-  res.send('Hello!')
+  res.send('Hello!');
 })
 
 app.get('/courses', cors(), (req, res) => {
+  console.log("ENTER")
   data.GetData().then(data => res.send(data));
 })
 

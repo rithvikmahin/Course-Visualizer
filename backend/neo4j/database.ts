@@ -33,6 +33,7 @@ async function Populate() {
 
                 for (const requirements in courses[course]['prerequisite']) {
                     for (const required_course of courses[course]['prerequisite'][requirements]) {
+                        const prereq = courses[course]['prerequisite'][requirements]
                         /** Removes junk course names that are not in the standard format. */
                         /** TODO:  Remove Concurrent Registration or save it in another format. remove length > 8 */
                         const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
@@ -41,12 +42,20 @@ async function Populate() {
                         if (!(regex_filter.test(required_course)) || required_course.length > maximumCourseLength) {
                             continue;
                         }
-                        // Removes letters from the prerequisite name.
-                        const prerequisiteNumber = required_course.toLowerCase().replace(/['a-z']/g, '');
+
+                        const prereqSubject = required_course.replace(/[0-9]/g, '');
+                        const prereqNumber = required_course.toLowerCase().replace(/['a-z']/g, '');
+                        /** TODO: Fix since prereq fields dont have description, credits, etc */
+                        const prereqNode = await txc.run(`MATCH (node: ${prereqSubject}) WHERE node.number = ${prereqNumber} RETURN node`);
+                        /** TODO: Generalize for all, not just CS */
+                        if (prereqNode.records.length == 0 && prereqSubject != 'CS') {
+                            /** TODO: Description only works if it is in double quotes */
+                            const createPrereqNode = await txc.run(`CREATE (node: ${prereqSubject} {number: ${prereqNumber}}) RETURN node `);
+                        }
                         // Draws an edge from the prerequisite to the course.
-                        const edge = await txc.run(`MATCH (prerequisite : ${subject}), (course : ${subject}) 
-                        WHERE prerequisite.number = ${prerequisiteNumber} AND course.number = ${courseNumber}
-                        CREATE (prerequisite)-[edge : TO]->(course) RETURN type(edge)`);
+                        const edge = await txc.run(`MATCH (prerequisite : ${prereqSubject}), (course : ${subject}) 
+                        WHERE prerequisite.number = ${prereqNumber} AND course.number = ${courseNumber}
+                        CREATE (prerequisite)-[edge : ${requirements}]->(course) RETURN type(edge)`);
                     }
                 }
             }   
@@ -70,10 +79,10 @@ async function GetData() {
     
     try {
         await session.readTransaction(async txc => {
-            const results = await txc.run(`MATCH (node) RETURN node`);
+            const nodeResults = await txc.run(`MATCH (node) RETURN node`);
             // Sets fields from the database object. 
-            for (const record of results.records) {
-                let details = {number: '', name: '', description: '', credits: ''};
+            for (const record of nodeResults.records) {
+                let details = {number: '', name: '', description: '', credits: '', prereqs: []};
                 const field = record._fields[0];
                 details['subject'] = field.labels[0];
                 const properties = field.properties;
@@ -81,9 +90,18 @@ async function GetData() {
                 details['number'] = properties.number.toInt();
                 details['description'] = properties.description;
                 details['credits'] = properties.credits;
-                //@ts-ignore
-                data.push(details);
-            }
+                /** TODO: Change CS to generalize for all */
+                const edgeResults = await txc.run(`MATCH (:CS {number: ${properties.number.toInt()}})<-[r]-(node) return *`);
+
+                for (const record of edgeResults.records) {
+                    const field = record._fields;
+                    for (let index = 0; index < field.length; index += 2) {
+                        details['prereqs'].push(`${field[index + 1].type},${field[index].labels}${field[index].properties.number.toInt()}`)
+                    }
+                    data.push(details);
+                }
+            }    
+            console.log(data);
         });
     } finally {
         await session.close();
@@ -92,4 +110,5 @@ async function GetData() {
     }
 }
 
+GetData();
 module.exports.GetData = GetData;
