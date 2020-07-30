@@ -1,6 +1,9 @@
 require('dotenv').config();
-const courses = require('./neo4j/json/Courses.json');
-const neo4j = require('neo4j-driver');
+import courses from './json/Courses.json'
+import neo4j from 'neo4j-driver'
+import readTransaction  from 'neo4j-driver/types/transaction'
+import writeTransaction  from 'neo4j-driver/types/transaction'
+
 
 /**
  * Fills the Neo4j database with course values from the JSON file.
@@ -13,7 +16,7 @@ async function PopulateData() {
     const session = driver.session();
     
     try {
-        await session.writeTransaction(async (txc) => {
+        await session.writeTransaction(async (txc: readTransaction) => {
             for (const course in courses) {
                 // Removes numbers from the course name.
                 const courseSubject = course.replace(/[0-9]/g, '');
@@ -75,7 +78,7 @@ async function GetData() {
     let result: Array<object> = [];
     
     try {
-        await session.readTransaction(async (txc: neo4j.readTransaction) => {
+        await session.readTransaction(async (txc: writeTransaction) => {
             const nodeData = await txc.run(`MATCH (node) RETURN node `);
             const nodeRecords = nodeData['records'];
 
