@@ -21,11 +21,9 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
   async componentDidMount() {
     const data = await axios.get('http://localhost:5000/courses');
     this.setState({ data: data.data });
-    console.log('Data ', this.state.data);
     const container = document.getElementById('cytoscape');
     this.Cytoscape(container as HTMLElement);
     this.setState({ container: container });
-    /** TODO: Update URL */
   }
 
   /** TODO: Change type any to object later */
@@ -43,9 +41,10 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
             selector: 'node',
             style: {
              'font-family': 'Ubuntu Mono, monospace',
+             'font-size': '25',
              'font-weight': 'bold',
-              width: 60,
-              height: 60,
+              width: 80,
+              height: 80,
               label: 'data(id)',
               backgroundColor: 'white',
               color: 'black',
@@ -57,7 +56,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
           {
             selector: 'edge',
             style: {
-              width: 5, 
+              width: 8, 
               'line-color': 'red',
               'mid-target-arrow-color': 'white',
               'mid-target-arrow-shape': 'triangle',
@@ -69,25 +68,50 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
           },
         ]
       });
+
     const courses = this.state.data;
     graph = this.GenerateGraph(graph, courses);
+
+    graph.on('tap', 'node', (node) => {
+      //console.log(graph.$('node:selected').connectedEdges());
+      let nodeId = node.target.id();
+
+      // add all successors (nodes and edges) to a collection
+      let childNodes = graph.nodes('[id="'+nodeId+'"]').successors();   
+    
+      // add clicked node to collection
+      childNodes = childNodes.add(node.target);  
+    
+      // add other nodes to other collection
+      let others = graph.elements().not(childNodes);  
+
+      //cy.remove() returns the deleted nodes and edges, so that you can just do cy.add() afterwards
+      const referenceNodes = graph.remove(others);  
+
+      // just call a new layout
+      graph.elements().makeLayout({'name': 'dagre'}).run(); 
+    });
+    
+
     /** Assigns a layout and fits the graph to the screen. */
-    const nodeSpacing = 1.5;
+    const nodeSpacing = 0.8;
     const layout = graph.layout(
       {
         name: 'dagre',
         spacingFactor: nodeSpacing,
         /** TODO: Add type definition */
         //@ts-ignore
-        nodeSep: 5,
-        rankSep: 200,
-        rankDir: 'TB'
+        nodeSep: 25,
+        rankSep: 300,
+        rankDir: 'TB',
+        ranker: 'longest-path'
       }
     );
+
     layout.run();
     graph.resize();
-    const minimumZoom = 0.23;
-    const maximumZoom = 1;
+    const minimumZoom = 0.35;
+    const maximumZoom = 1.2;
     graph.minZoom(minimumZoom);
     graph.maxZoom(maximumZoom);
     const elements = graph.elements();
@@ -103,46 +127,39 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
    */
   GenerateGraph(graph: cytoscape.Core, courses: { [key: string]: any }): cytoscape.Core {
     /** Adds the current course as a node if it does not exist in the graph. */
-    for (const course in courses) {
-      if (!(graph.filter(`node[id = '${course}']`).length)) {
+    for (const courseObject in courses) {
+      const course = courses[courseObject];
+      const fullCourse = course['subject'] + course['number'];
+
+      if (!(graph.filter(`node[id = '${fullCourse}']`).length)) {
         graph.add({
           group: 'nodes',
           data: {
-            id: course
+            id: fullCourse
           }
         }); 
       }
-
-      for (const requirements in courses[course]['prerequisite']) {
-        for (const required_course of courses[course]['prerequisite'][requirements]) {
-          /** Removes junk course names that are not in the standard format. */
-          /** TODO:  Remove Concurrent Registration or save it in another format. remove length > 8 */
-          const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
-          const maximumCourseLength = 8;
-          if (!(regex_filter.test(required_course)) || required_course.length > maximumCourseLength) {
-            continue;
-          }
-          /** Adds the current prerequisites as nodes if they do not exist in the graph. */
-          if (!(graph.filter(`node[id = '${required_course}']`).length)) {
-            graph.add({
-              group: 'nodes',
-              data: {
-                id: required_course
-              }
-            }); 
-          }
-        /** Creates an edge between the requirements and the current course. */
-        graph.add({
-          group: 'edges',
-          data: {
-            id: `${required_course}-${course}`,
-            source: required_course,
-            target: course
-          }
-        });
+    }
+    for (const courseObject in courses) {
+      const course = courses[courseObject];
+      const fullCourse = course['subject'] + course['number'];
+      
+      for (const req in course['prereqs']) {
+          for (let prereq in course['prereqs'][req]) {
+            prereq = course['prereqs'][req][prereq];
+      
+          // Creates an edge between the requirements and the current course. 
+          graph.add({
+            group: 'edges',
+            data: {
+              id: `${prereq}-${fullCourse}`,
+              source: prereq,
+              target: fullCourse
+            }
+          });
         }
       }
-    }
+  }
     return graph;
   }
 
@@ -165,7 +182,6 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
           <div className='graph' id='cytoscape' />
           <div className='search'>
             <Search />
-            <button onClick={() => console.log(this.state)}>CLICK</button>
           </div>
         </div>
       </div>

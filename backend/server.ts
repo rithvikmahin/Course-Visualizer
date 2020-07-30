@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('');
+  res.send('The server is running.');
 });
 
 app.get('/courses', (req: Request, res: Response) => {

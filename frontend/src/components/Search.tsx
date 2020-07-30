@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import SearchBar from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from "@material-ui/core";

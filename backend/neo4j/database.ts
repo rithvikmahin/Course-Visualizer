@@ -82,14 +82,14 @@ async function PopulateData() {
 async function GetData() {
     const driver = neo4j.driver(
         'bolt://localhost',
-         neo4j.auth.basic(`${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`)
+         neo4j.auth.basic(`neo4j`, `neo4j`)
     );
     const session = driver.session();
     let result: Array<object> = [];
     
     try {
         await session.readTransaction(async (txc: writeTransaction) => {
-            const nodeData = await txc.run(`MATCH (node) RETURN node `);
+            const nodeData = await txc.run(`MATCH (node) RETURN node ORDER BY node.number`);
             const nodeRecords = nodeData['records'];
 
             for (const nodeRecord in nodeRecords) {
@@ -103,34 +103,33 @@ async function GetData() {
                 data['name'] = properties['name'];
                 data['description'] = properties['description'];
                 data['credits'] = properties['credits'];
+                const edgeData = await txc.run(`MATCH(prerequisite)-[r]->(course) WHERE course.number=${properties['number'].toInt()} 
+                                                RETURN prerequisite, type(r)`);
+                const edgeRecords = edgeData['records'];
 
-            const edgeData = await txc.run(`MATCH(prerequisite)-[r]->(course) WHERE course.number=${properties['number'].toInt()} 
-                                            RETURN prerequisite, type(r)`);
-            const edgeRecords = edgeData['records'];
+                for (const edgeRecord in edgeRecords) {
+                    // @ts-ignore
+                    const prereq = edgeRecords[edgeRecord]['_fields'][0];
+                    // @ts-ignore
+                    const prereqType = edgeRecords[edgeRecord]['_fields'][1];
+                    const properties = prereq['properties']
+                    const prereqSubject = properties['subject'];
+                    const prereqNumber = properties['number'].toInt();
+                    const prereqCourse = prereqSubject + prereqNumber.toString();
 
-            for (const edgeRecord in edgeRecords) {
-                // @ts-ignore
-                const prereq = edgeRecords[edgeRecord]['_fields'][0];
-                // @ts-ignore
-                const prereqType = edgeRecords[edgeRecord]['_fields'][1];
-                const properties = prereq['properties']
-                const prereqSubject = properties['subject'];
-                const prereqNumber = properties['number'].toInt();
-                const prereqCourse = prereqSubject + prereqNumber.toString();
-
-                if (!(prereqType in data['prereqs'])) {
-                    data['prereqs'][prereqType] = [];
+                    if (!(prereqType in data['prereqs'])) {
+                        data['prereqs'][prereqType] = [];
+                    }
+                    data['prereqs'][prereqType].push(prereqCourse);
                 }
-                data['prereqs'][prereqType].push(prereqCourse);
-            }
-            result.push(data);
-        } 
+                result.push(data);
+            } 
         });
     } finally {
         await session.close();
         await driver.close();
-        return result;
     }
+    return result;
 }
-
+GetData();
 module.exports.GetData = GetData;
