@@ -1,5 +1,5 @@
 require('dotenv').config();
-const courses =  require('./json/Courses.json');
+const courses = require('./neo4j/json/Courses.json');
 const neo4j = require('neo4j-driver');
 
 /**
@@ -8,12 +8,12 @@ const neo4j = require('neo4j-driver');
 async function PopulateData() {
     const driver = neo4j.driver(
         'bolt://localhost',
-         neo4j.auth.basic(`neo4j`, `neo4j`)
+         neo4j.auth.basic(`${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`)
     );
     const session = driver.session();
     
     try {
-        await session.writeTransaction(async txc => {
+        await session.writeTransaction(async (txc) => {
             for (const course in courses) {
                 // Removes numbers from the course name.
                 const courseSubject = course.replace(/[0-9]/g, '');
@@ -22,13 +22,12 @@ async function PopulateData() {
                 const name = courses[course]['name'];
                 const credits = courses[course]['credits'];
                 const description = courses[course]['description'];
-                // A query that checks if the node exists in the database.
                 const courseNode = await txc.run(`MATCH (node: ${courseSubject}) WHERE node.number = ${courseNumber} RETURN node`);
 
                 if (courseNode.records.length == 0) {
-                    /** TODO: Description only works if it is in double quotes */
-                    const createCourseNode = await txc.run(`CREATE (node: CS {subject: '${courseSubject}', number: ${courseNumber}, 
-                        name: '${name}', credits: '${credits}', description: "${description}"}) RETURN node `);
+                    // Creates the node if it doesn't exist.
+                    await txc.run(`CREATE (node: CS {subject: '${courseSubject}', number: ${courseNumber}, 
+                                           name: '${name}', credits: '${credits}', description: "${description}"}) RETURN node `);
                 }
 
                 for (const requirements in courses[course]['prerequisite']) {
@@ -51,7 +50,7 @@ async function PopulateData() {
                         const prereqSubject = requiredCourse.replace(/['0-9']/g, '');
 
                         // Draws an edge from the prerequisite to the course.
-                        const edge = await txc.run(`MATCH (prerequisite : ${prereqSubject}), (course : ${courseSubject}) 
+                        await txc.run(`MATCH (prerequisite : ${prereqSubject}), (course : ${courseSubject}) 
                         WHERE prerequisite.number = ${prereqNumber} AND course.number = ${courseNumber}
                         CREATE (prerequisite)-[edge : ${requirements}]->(course) RETURN type(edge)`);
                     }
@@ -65,23 +64,24 @@ async function PopulateData() {
 }
 
 /**
- * Retrieves the courses data from Neo4j.
+ * Retrieves the course data from Neo4j.
  */
 async function GetData() {
     const driver = neo4j.driver(
         'bolt://localhost',
-         neo4j.auth.basic(`neo4j`, `neo4j`)
+         neo4j.auth.basic(`${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`)
     );
     const session = driver.session();
-    let result = [];
+    let result: Array<object> = [];
     
     try {
-        await session.readTransaction(async txc => {
+        await session.readTransaction(async (txc: neo4j.readTransaction) => {
             const nodeData = await txc.run(`MATCH (node) RETURN node `);
             const nodeRecords = nodeData['records'];
 
             for (const nodeRecord in nodeRecords) {
-                let data = {'subject': '', 'number': '', 'name': '', 'description': '', 'credits': '', prereqs: {}}
+                let prereqs: {[key: string]: Array<string>} = {}
+                let data = {'subject': '', 'number': '', 'name': '', 'description': '', 'credits': '', prereqs}
                 const course = nodeRecords[nodeRecord]['_fields'][0];
                 const properties = course['properties'];
                 data['subject'] = properties['subject'];
@@ -96,7 +96,7 @@ async function GetData() {
 
             for (const edgeRecord in edgeRecords) {
                 const prereq = edgeRecords[edgeRecord]['_fields'][0];
-                const prereqType = edgeRecords[edgeRecord]['_fields'][1];
+                const prereqType: string = edgeRecords[edgeRecord]['_fields'][1];
                 const properties = prereq['properties']
                 const prereqSubject = properties['subject'];
                 const prereqNumber = properties['number'].toInt();
@@ -105,7 +105,6 @@ async function GetData() {
                 if (!(prereqType in data['prereqs'])) {
                     data['prereqs'][prereqType] = [];
                 }
-                    
                 data['prereqs'][prereqType].push(prereqCourse);
             }
             result.push(data);
