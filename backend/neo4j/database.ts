@@ -5,10 +5,10 @@ const neo4j = require('neo4j-driver');
 /**
  * Fills the Neo4j database with course values from the JSON file.
  */
-async function Populate() {
+async function PopulateData() {
     const driver = neo4j.driver(
         'bolt://localhost',
-         neo4j.auth.basic(`${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`)
+         neo4j.auth.basic(`neo4j`, `neo4j`)
     );
     const session = driver.session();
     
@@ -16,44 +16,42 @@ async function Populate() {
         await session.writeTransaction(async txc => {
             for (const course in courses) {
                 // Removes numbers from the course name.
-                const subject = course.replace(/[0-9]/g, '');
+                const courseSubject = course.replace(/[0-9]/g, '');
                 // Removes letters from the course name.
                 const courseNumber = course.toLowerCase().replace(/['a-z']/g, '');
                 const name = courses[course]['name'];
                 const credits = courses[course]['credits'];
                 const description = courses[course]['description'];
                 // A query that checks if the node exists in the database.
-                const courseNode = await txc.run(`MATCH (node: ${subject}) WHERE node.number = ${courseNumber} RETURN node`);
+                const courseNode = await txc.run(`MATCH (node: ${courseSubject}) WHERE node.number = ${courseNumber} RETURN node`);
 
                 if (courseNode.records.length == 0) {
                     /** TODO: Description only works if it is in double quotes */
-                    const createCourseNode = await txc.run(`CREATE (node: CS {number: ${courseNumber}, name: '${name}', 
-                    credits: '${credits}', description: "${description}"}) RETURN node `);
+                    const createCourseNode = await txc.run(`CREATE (node: CS {subject: '${courseSubject}', number: ${courseNumber}, 
+                        name: '${name}', credits: '${credits}', description: "${description}"}) RETURN node `);
                 }
 
                 for (const requirements in courses[course]['prerequisite']) {
-                    for (const required_course of courses[course]['prerequisite'][requirements]) {
-                        const prereq = courses[course]['prerequisite'][requirements]
+                    for (const requiredCourse of courses[course]['prerequisite'][requirements]) {
                         /** Removes junk course names that are not in the standard format. */
                         /** TODO:  Remove Concurrent Registration or save it in another format. remove length > 8 */
                         const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
                         const maximumCourseLength = 8;
 
-                        if (!(regex_filter.test(required_course)) || required_course.length > maximumCourseLength) {
+                        if (!(regex_filter.test(requiredCourse)) || requiredCourse.length > maximumCourseLength) {
                             continue;
                         }
 
-                        const prereqSubject = required_course.replace(/[0-9]/g, '');
-                        const prereqNumber = required_course.toLowerCase().replace(/['a-z']/g, '');
-                        /** TODO: Fix since prereq fields dont have description, credits, etc */
-                        const prereqNode = await txc.run(`MATCH (node: ${prereqSubject}) WHERE node.number = ${prereqNumber} RETURN node`);
-                        /** TODO: Generalize for all, not just CS */
-                        if (prereqNode.records.length == 0 && prereqSubject != 'CS') {
-                            /** TODO: Description only works if it is in double quotes */
-                            const createPrereqNode = await txc.run(`CREATE (node: ${prereqSubject} {number: ${prereqNumber}}) RETURN node `);
+                        /** TODO: Remove later */
+                        if (!(requiredCourse.includes('CS'))) {
+                            continue;
                         }
+
+                        const prereqNumber = requiredCourse.toLowerCase().replace(/['a-z']/g, '');
+                        const prereqSubject = requiredCourse.replace(/['0-9']/g, '');
+
                         // Draws an edge from the prerequisite to the course.
-                        const edge = await txc.run(`MATCH (prerequisite : ${prereqSubject}), (course : ${subject}) 
+                        const edge = await txc.run(`MATCH (prerequisite : ${prereqSubject}), (course : ${courseSubject}) 
                         WHERE prerequisite.number = ${prereqNumber} AND course.number = ${courseNumber}
                         CREATE (prerequisite)-[edge : ${requirements}]->(course) RETURN type(edge)`);
                     }
@@ -72,43 +70,52 @@ async function Populate() {
 async function GetData() {
     const driver = neo4j.driver(
         'bolt://localhost',
-         neo4j.auth.basic(`${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`)
+         neo4j.auth.basic(`neo4j`, `neo4j`)
     );
     const session = driver.session();
-    let data = [];
+    let result = [];
     
     try {
         await session.readTransaction(async txc => {
-            const nodeResults = await txc.run(`MATCH (node) RETURN node`);
-            // Sets fields from the database object. 
-            for (const record of nodeResults.records) {
-                let details = {number: '', name: '', description: '', credits: '', prereqs: []};
-                const field = record._fields[0];
-                details['subject'] = field.labels[0];
-                const properties = field.properties;
-                details['name'] = properties.name;
-                details['number'] = properties.number.toInt();
-                details['description'] = properties.description;
-                details['credits'] = properties.credits;
-                /** TODO: Change CS to generalize for all */
-                const edgeResults = await txc.run(`MATCH (:CS {number: ${properties.number.toInt()}})<-[r]-(node) return *`);
+            const nodeData = await txc.run(`MATCH (node) RETURN node `);
+            const nodeRecords = nodeData['records'];
 
-                for (const record of edgeResults.records) {
-                    const field = record._fields;
-                    for (let index = 0; index < field.length; index += 2) {
-                        details['prereqs'].push(`${field[index + 1].type},${field[index].labels}${field[index].properties.number.toInt()}`)
-                    }
-                    data.push(details);
+            for (const nodeRecord in nodeRecords) {
+                let data = {'subject': '', 'number': '', 'name': '', 'description': '', 'credits': '', prereqs: {}}
+                const course = nodeRecords[nodeRecord]['_fields'][0];
+                const properties = course['properties'];
+                data['subject'] = properties['subject'];
+                data['number'] = properties['number'].toInt();
+                data['name'] = properties['name'];
+                data['description'] = properties['description'];
+                data['credits'] = properties['credits'];
+
+            const edgeData = await txc.run(`MATCH(prerequisite)-[r]->(course) WHERE course.number=${properties['number'].toInt()} 
+                                            RETURN prerequisite, type(r)`);
+            const edgeRecords = edgeData['records'];
+
+            for (const edgeRecord in edgeRecords) {
+                const prereq = edgeRecords[edgeRecord]['_fields'][0];
+                const prereqType = edgeRecords[edgeRecord]['_fields'][1];
+                const properties = prereq['properties']
+                const prereqSubject = properties['subject'];
+                const prereqNumber = properties['number'].toInt();
+                const prereqCourse = prereqSubject + prereqNumber.toString();
+
+                if (!(prereqType in data['prereqs'])) {
+                    data['prereqs'][prereqType] = [];
                 }
-            }    
-            console.log(data);
+                    
+                data['prereqs'][prereqType].push(prereqCourse);
+            }
+            result.push(data);
+        } 
         });
     } finally {
         await session.close();
         await driver.close();
-        return data;
+        return result;
     }
 }
 
-GetData();
 module.exports.GetData = GetData;
