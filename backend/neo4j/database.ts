@@ -1,10 +1,11 @@
-require('dotenv').config();
-import courses from './json/Courses.json'
+import coursesRaw from './json/Courses.json'
+import Courses from '../types/json'
 import neo4j from 'neo4j-driver'
 import readTransaction  from 'neo4j-driver/types/transaction'
 import writeTransaction  from 'neo4j-driver/types/transaction'
+require('dotenv').config();
 
-
+const courses: Courses[] = coursesRaw;
 /**
  * Fills the Neo4j database with course values from the JSON file.
  */
@@ -17,45 +18,54 @@ async function PopulateData() {
     
     try {
         await session.writeTransaction(async (txc: readTransaction) => {
-            for (const course in courses) {
-                // Removes numbers from the course name.
-                const courseSubject = course.replace(/[0-9]/g, '');
-                // Removes letters from the course name.
-                const courseNumber = course.toLowerCase().replace(/['a-z']/g, '');
-                const name = courses[course]['name'];
-                const credits = courses[course]['credits'];
-                const description = courses[course]['description'];
-                const courseNode = await txc.run(`MATCH (node: ${courseSubject}) WHERE node.number = ${courseNumber} RETURN node`);
+            for (const dictionary in courses) {
+                for (const subject in courses[dictionary]) {
+                    // @ts-ignore
+                    const subjectCourses = courses[dictionary][subject];
+    
+                    for (const courseDetails in subjectCourses) {
+                        const course = subjectCourses[courseDetails];
+                         // Removes numbers from the course name.
+                        const courseSubject = course['course'].replace(/[0-9]/g, '');
+                        // Removes letters from the course name.
+                        const courseNumber = course['course'].toLowerCase().replace(/['a-z']/g, '');
+                        const name = course['name'];
+                        const credits = course['credits'];
+                        const description = course['description'];
+                        const courseNode = await txc.run(`MATCH (node: ${courseSubject}) WHERE node.number = ${courseNumber} RETURN node`);
 
-                if (courseNode.records.length == 0) {
-                    // Creates the node if it doesn't exist.
-                    await txc.run(`CREATE (node: CS {subject: '${courseSubject}', number: ${courseNumber}, 
-                                           name: '${name}', credits: '${credits}', description: "${description}"}) RETURN node `);
-                }
-
-                for (const requirements in courses[course]['prerequisite']) {
-                    for (const requiredCourse of courses[course]['prerequisite'][requirements]) {
-                        /** Removes junk course names that are not in the standard format. */
-                        /** TODO:  Remove Concurrent Registration or save it in another format. remove length > 8 */
-                        const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
-                        const maximumCourseLength = 8;
-
-                        if (!(regex_filter.test(requiredCourse)) || requiredCourse.length > maximumCourseLength) {
-                            continue;
+                        if (courseNode.records.length == 0) {
+                            // Creates the node if it doesn't exist.
+                            await txc.run(`CREATE (node: CS {subject: '${courseSubject}', number: ${courseNumber}, 
+                                                   name: '${name}', credits: '${credits}', description: "${description}"}) RETURN node `);
                         }
 
-                        /** TODO: Remove later */
-                        if (!(requiredCourse.includes('CS'))) {
-                            continue;
+                        for (const requirements in course['prerequisite']) {
+                            for (const requiredCourse of course['prerequisite'][requirements]) {
+                                /** Removes junk course names that are not in the standard format. */
+                                /** TODO:  Remove Concurrent Registration or save it in another format. remove length > 8 */
+                                const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
+                                const maximumCourseLength = 8;
+        
+                                if (!(regex_filter.test(requiredCourse)) || requiredCourse.length > maximumCourseLength) {
+                                    continue;
+                                }
+        
+                                /** TODO: Remove later */
+                                if (!(requiredCourse.includes('CS'))) {
+                                    continue;
+                                }
+        
+                                const prereqNumber = requiredCourse.toLowerCase().replace(/['a-z']/g, '');
+                                const prereqSubject = requiredCourse.replace(/['0-9']/g, '');
+        
+                                // Draws an edge from the prerequisite to the course.
+                                await txc.run(`MATCH (prerequisite : ${prereqSubject}), (course : ${courseSubject}) 
+                                WHERE prerequisite.number = ${prereqNumber} AND course.number = ${courseNumber}
+                                CREATE (prerequisite)-[edge : ${requirements}]->(course) RETURN type(edge)`);
+                            }
                         }
 
-                        const prereqNumber = requiredCourse.toLowerCase().replace(/['a-z']/g, '');
-                        const prereqSubject = requiredCourse.replace(/['0-9']/g, '');
-
-                        // Draws an edge from the prerequisite to the course.
-                        await txc.run(`MATCH (prerequisite : ${prereqSubject}), (course : ${courseSubject}) 
-                        WHERE prerequisite.number = ${prereqNumber} AND course.number = ${courseNumber}
-                        CREATE (prerequisite)-[edge : ${requirements}]->(course) RETURN type(edge)`);
                     }
                 }
             }   
@@ -85,6 +95,7 @@ async function GetData() {
             for (const nodeRecord in nodeRecords) {
                 let prereqs: {[key: string]: Array<string>} = {}
                 let data = {'subject': '', 'number': '', 'name': '', 'description': '', 'credits': '', prereqs}
+                // @ts-ignore
                 const course = nodeRecords[nodeRecord]['_fields'][0];
                 const properties = course['properties'];
                 data['subject'] = properties['subject'];
@@ -98,8 +109,10 @@ async function GetData() {
             const edgeRecords = edgeData['records'];
 
             for (const edgeRecord in edgeRecords) {
+                // @ts-ignore
                 const prereq = edgeRecords[edgeRecord]['_fields'][0];
-                const prereqType: string = edgeRecords[edgeRecord]['_fields'][1];
+                // @ts-ignore
+                const prereqType = edgeRecords[edgeRecord]['_fields'][1];
                 const properties = prereq['properties']
                 const prereqSubject = properties['subject'];
                 const prereqNumber = properties['number'].toInt();
@@ -119,5 +132,4 @@ async function GetData() {
         return result;
     }
 }
-
 module.exports.GetData = GetData;

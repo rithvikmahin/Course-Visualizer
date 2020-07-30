@@ -41,11 +41,13 @@ def catalog_to_json(catalog_url: str = 'http://catalog.illinois.edu/courses-of-i
     soup = BeautifulSoup(request, 'html.parser')
 
     # Find all course data
+    final_courses = []
     courses = [i.text for i in soup.find(id='courseinventorycontainer').find_all('div')]
     courses_dict = get_course_dict(courses)
+    final_courses.append(courses_dict)
 
     with open(os.path.join(os.getcwd(), output_dir), 'w') as json_file:
-        json.dump(courses_dict, json_file)
+        json.dump(final_courses, json_file)
 
 def get_course_dict(courses: list):
     """Gets dictionary of course info from list of courses.
@@ -59,6 +61,7 @@ def get_course_dict(courses: list):
                            re.split(r'\n\nCS\xa0', courses[0])))
 
     courses_dict = {}
+    courses_list = []
     for course in course_list[1:]:
         # Removes empty and newline characters
         course = list(filter(lambda x: x != '', course.split("\n")))
@@ -66,7 +69,7 @@ def get_course_dict(courses: list):
         course_info = course[1].split('Prerequisite:')
 
         course_dict = {
-            'number': course_details[0].replace(' ',''),
+            'course': course_details[0].replace(' ',''),
             'name': course_details[1],
             'description': course_info[0],
         }
@@ -93,8 +96,8 @@ def get_course_dict(courses: list):
                 prereq_dict['req' + str(i + 1)] = value
             
         course_dict['prerequisite'] = prereq_dict
-        courses_dict[course_dict['number'].strip()] = course_dict
-
+        courses_list.append(course_dict)
+    courses_dict['CS'] = courses_list
     return courses_dict
 
 if __name__ == "__main__":
