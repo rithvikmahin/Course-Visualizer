@@ -132,4 +132,5 @@ async function GetData() {
         return result;
     }
 }
+
 module.exports.GetData = GetData;
