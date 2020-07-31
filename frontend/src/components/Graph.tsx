@@ -76,34 +76,12 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
 
     const courses = this.state.data;
     graph = this.GenerateGraph(graph, courses);
-
-    graph.on('tap', 'node', (node) => {
-      //console.log(graph.$('node:selected').connectedEdges());
-      let nodeId = node.target.id();
-
-      // add all successors (nodes and edges) to a collection
-      let childNodes = graph.nodes('[id="'+nodeId+'"]').predecessors();   
     
-      // add clicked node to collection
-      childNodes = childNodes.add(node.target);  
-    
-      // add other nodes to other collection
-      let others = graph.elements().not(childNodes);  
-
-      //cy.remove() returns the deleted nodes and edges, so that you can just do cy.add() afterwards
-      const referenceNodes = graph.remove(others);  
-
-      // just call a new layout
-      graph.elements().makeLayout({'name': 'dagre'}).run(); 
-    });
-    
-
     /** Assigns a layout and fits the graph to the screen. */
-    const nodeSpacing = 0.8;
-    const layout = graph.layout(
+    let layout = 
       {
         name: 'dagre',
-        spacingFactor: nodeSpacing,
+        spacingFactor: 0.8,
         /** TODO: Add type definition */
         //@ts-ignore
         nodeSep: 25,
@@ -111,9 +89,23 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
         rankDir: 'TB',
         ranker: 'longest-path'
       }
-    );
+    const graphLayout = graph.layout(layout)
 
-    layout.run();
+    graph.on('tap', 'node', (node) => {
+      let nodeId = node.target.id();
+      // Add all predecessors (nodes and edges) to a collection.
+      let parentNodes = graph.nodes('[id="' + nodeId + '"]').predecessors();   
+      // Add the selected node to a collection.
+      parentNodes = parentNodes.add(node.target); 
+      // Add all other nodes to the other collection.
+      let others = graph.elements().not(parentNodes);  
+      //cy.remove() returns the deleted nodes and edges, so that you can just do cy.add() afterwards
+      const referenceNodes = graph.remove(others);  
+      graph.elements().makeLayout(layout).run(); 
+      graph.fit(graph.elements());
+    });
+
+    graphLayout.run();
     graph.resize();
     const minimumZoom = 0.35;
     const maximumZoom = 1.2;
@@ -163,7 +155,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
               target: fullCourse
             }
           });
-
+          // Sets the color of the edge based on the category of prereq it is.
           graph.edges(`edge[id = '${prereq}-${fullCourse}']`).style('line-color', color);
         }
       }
