@@ -6,6 +6,12 @@ import '../css/style.css'
 import Search from './Search'
 
 type AppProps = {}
+
+const Colors: {[key: string]: string} = {
+  'req1': 'red',
+  'req2': 'green',
+  'req3': 'blue'
+}
 /** TODO: Change data any type  */
 class Graph extends Component<AppProps, {container: HTMLElement | null, data: any}> {
 
@@ -57,7 +63,6 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
             selector: 'edge',
             style: {
               width: 8, 
-              'line-color': 'red',
               'mid-target-arrow-color': 'white',
               'mid-target-arrow-shape': 'triangle',
               'target-arrow-color': 'white',
@@ -77,7 +82,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
       let nodeId = node.target.id();
 
       // add all successors (nodes and edges) to a collection
-      let childNodes = graph.nodes('[id="'+nodeId+'"]').successors();   
+      let childNodes = graph.nodes('[id="'+nodeId+'"]').predecessors();   
     
       // add clicked node to collection
       childNodes = childNodes.add(node.target);  
@@ -145,6 +150,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
       const fullCourse = course['subject'] + course['number'];
       
       for (const req in course['prereqs']) {
+          const color = Colors[req];
           for (let prereq in course['prereqs'][req]) {
             prereq = course['prereqs'][req][prereq];
       
@@ -157,6 +163,8 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
               target: fullCourse
             }
           });
+
+          graph.edges(`edge[id = '${prereq}-${fullCourse}']`).style('line-color', color);
         }
       }
   }
