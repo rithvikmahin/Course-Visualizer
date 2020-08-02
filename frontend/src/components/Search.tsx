@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import SearchBar from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import { withStyles } from "@material-ui/core";
@@ -24,16 +24,35 @@ const styles = (theme: any) => ({
     notchedOutline: {},
   })
 
-function Search() {
+function Search(data: any) {
+
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchBar, setSearchBar] = useState(null);
+    const [courses, setCourses] = useState(null);
+    
+    const handleSearch = () => {
+      if (searchBar) {
+        //@ts-ignore
+        setSearchTerm(searchBar.value);
+        if (courses) {
+          //@ts-ignore
+          console.log(courses);
+        }
+      }
+    }
+
+    useEffect(() => {
+      const search: any = document.getElementById('search-bar');
+      setCourses(data.data);
+
+      if (search) {
+        setSearchBar(search);
+      }
+    });
 
     return (
-        <div className="searchbar">
-            <SearchBar 
-            options={data} 
-            getOptionLabel={(data) => data.value}
-            style={{width: '100%'}}
-
-    renderInput={(params) => <TextField {...params} label='Enter a course name' margin='none' variant='filled' color="secondary" />} />
+        <div>
+            <input type='text' id='search-bar' placeholder='search' onChange={handleSearch} value={searchTerm}/>
         </div>
     )
 }

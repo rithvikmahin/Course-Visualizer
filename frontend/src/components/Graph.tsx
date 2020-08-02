@@ -181,7 +181,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
         <div style={{display: 'flex'}}>
           <div className='graph' id='cytoscape' />
           <div className='search'>
-            <Search />
+            <Search data={this.state.data}/>
           </div>
         </div>
       </div>
