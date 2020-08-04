@@ -1,49 +1,37 @@
 import React, { useState, useEffect } from 'react'
-import SearchBar from '@material-ui/lab/Autocomplete'
-import TextField from '@material-ui/core/TextField'
-import { withStyles } from "@material-ui/core";
 import '../css/style.css'
-import data from '../json/Data.json'
-
-const styles = (theme: any) => ({
-    textField: {
-      marginLeft: theme.spacing.unit * 3,
-      marginBottom: '0px',
-    },
-    label: {
-      '&$focused': {
-        color: '#4A90E2'
-      },
-    },
-    focused: {},
-    outlinedInput: {
-      '&$focused $notchedOutline': {
-        border: '1px solid #4A90E2'
-      },
-    },
-    notchedOutline: {},
-  })
+import Fuse from 'fuse.js'
 
 function Search(data: any) {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [searchBar, setSearchBar] = useState(null);
     const [courses, setCourses] = useState(null);
+
+    let fuse: string;
+    const options = {
+      keys: ['subject', 'number']
+    }
     
     const handleSearch = () => {
       if (searchBar) {
         //@ts-ignore
         setSearchTerm(searchBar.value);
-        if (courses) {
-          //@ts-ignore
-          console.log(courses);
-        }
+      }
+      if (searchTerm) {
+        const result = fuse.search(searchTerm);
+        console.log(result);
       }
     }
 
     useEffect(() => {
       const search: any = document.getElementById('search-bar');
       setCourses(data.data);
+
+      if (courses) {
+        // @ts-ignore
+        fuse = new Fuse(courses, options);
+      }
 
       if (search) {
         setSearchBar(search);
@@ -57,4 +45,4 @@ function Search(data: any) {
     )
 }
 
-export default withStyles(styles)(Search);
+export default Search;
