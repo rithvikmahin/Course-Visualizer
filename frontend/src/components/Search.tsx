@@ -12,7 +12,7 @@ function Search(data: Data) {
     const [fuseList, setFuseList] = useState(null);
     const stateRef = useRef();
 
-    stateRef.current = fuseList ? fuseList[0]['item']['subject'] + fuseList[0]['item']['number'] : '';
+    stateRef.current = fuseList && searchTerm ? fuseList[0]['item']['subject'] + fuseList[0]['item']['number'] : '';
 
     let fuse: {[key: string]: any};
     const options = {
