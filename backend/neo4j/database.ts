@@ -42,7 +42,7 @@ async function PopulateData() {
 
                         for (const requirements in course['prerequisite']) {
                             for (const requiredCourse of course['prerequisite'][requirements]) {
-                                /** Removes junk course names that are not in the standard format. */
+                                // Removes junk course names that are not in the standard format. 
                                 /** TODO:  Remove Concurrent Registration or save it in another format. remove length > 8 */
                                 const regex_filter = new RegExp('[A-Z]{2,5}\\d{2,3}');
                                 const maximumCourseLength = 8;

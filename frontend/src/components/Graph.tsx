@@ -4,6 +4,7 @@ import dagre from 'cytoscape-dagre'
 import axios from 'axios'
 import '../css/style.css'
 import Search from './Search'
+import Courses from '../types/json'
 
 type AppProps = {}
 
@@ -12,8 +13,8 @@ const Colors: {[key: string]: string} = {
   'req2': 'green',
   'req3': 'blue'
 }
-/** TODO: Change data any type  */
-class Graph extends Component<AppProps, {container: HTMLElement | null, data: any}> {
+
+class Graph extends Component<AppProps, {container: HTMLElement | null, data: Courses}> {
 
   constructor(props: AppProps) {
     super(props);
@@ -32,7 +33,6 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
     this.setState({ container: container });
   }
 
-  /** TODO: Change type any to object later */
   /**
    * @param container - The div DOM element containing the graph.
    * @param courses - The JSON list of courses.
@@ -77,13 +77,11 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: an
     const courses = this.state.data;
     graph = this.GenerateGraph(graph, courses);
     
-    /** Assigns a layout and fits the graph to the screen. */
+    // Assigns a layout and fits the graph to the screen. 
     let layout = 
       {
         name: 'dagre',
         spacingFactor: 0.8,
-        /** TODO: Add type definition */
-        //@ts-ignore
         nodeSep: 25,
         rankSep: 300,
         rankDir: 'TB',
