@@ -9,9 +9,9 @@ import Courses from '../types/json'
 type AppProps = {}
 
 const Colors: {[key: string]: string} = {
-  'req1': 'red',
-  'req2': 'green',
-  'req3': 'blue'
+  'req1': '#7045AF',
+  'req2': '#A7D129',
+  'req3': '#FF6C00'
 }
 
  
@@ -60,9 +60,8 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
           {
             selector: 'node',
             style: {
-             'font-family': 'Ubuntu Mono, monospace',
+             'font-family': 'Bahnschrift',
              'font-size': '25',
-             'font-weight': 'bold',
               width: 80,
               height: 80,
               label: 'data(id)',
@@ -70,7 +69,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
               color: 'black',
               'text-valign': 'center',
               'text-halign': 'center',
-              opacity: 0.75
+              opacity: 0.8
             }
           },
           {
@@ -82,7 +81,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
               'target-arrow-color': 'white',
               'target-arrow-shape': 'triangle',
               'curve-style': 'bezier',
-              opacity: 0.4
+              opacity: 0.8
             }
           },
         ]

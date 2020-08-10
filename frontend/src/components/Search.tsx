@@ -48,11 +48,11 @@ function Search(props: any) {
 
     return (
         <div>
-            <input type='text' id='search-bar' placeholder='Enter a course number' onChange={handleSearch} value={searchTerm}/>
+            <input type='text' id='search-bar' style={{fontFamily: 'Bahnschrift'}} placeholder='Enter a course number' onChange={handleSearch} value={searchTerm}/>
             {/**
              * 
              //@ts-ignore */}
-            <div id='search-result' onClick={() => props.action(stateRef.current)} style={{backgroundColor: 'white', color: 'black'}}>{stateRef.current}</div>
+            <div id='search-result' onClick={() => props.action(stateRef.current)} style={{fontFamily: 'Bahnschrift', backgroundColor: 'grey', color: 'white', width: '75%', margin:'auto'}}>{stateRef.current}</div>
         </div>
     )
 }

@@ -15,11 +15,3 @@
 .searchbar {
     background: #202020;
 }
-
-.MuiTextField-root {
-    background: grey;
-}
-
-.MuiAutocomplete-inputRoot[class*="MuiFilledInput-root"] .MuiAutocomplete-endAdornment {
-    visibility: hidden;
-}
