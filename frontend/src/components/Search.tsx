@@ -28,9 +28,10 @@ function Search(props: any) {
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
       let value = event.target.value;
       setSearchTerm(value);
-      if (searchTerm) {
+
+      if (value) {
         // Removes whitespace from the search.
-        const query = searchTerm.replace(/\s/g, '');
+        const query = value.replace(/\s/g, '');
         const result: Courses = fuse.search(query);
         setFuseList(result);
       }
@@ -52,7 +53,7 @@ function Search(props: any) {
             {/**
              * 
              //@ts-ignore */}
-            <div id='search-result' onClick={() => props.action(stateRef.current)} style={{fontFamily: 'Bahnschrift', backgroundColor: 'grey', color: 'white', width: '75%', margin:'auto'}}>{stateRef.current}</div>
+            <div id='search-result' onClick={() => props.action(stateRef.current)} style={{fontFamily: 'Bahnschrift', backgroundColor: 'grey', color: 'white', width: '75%', margin:'auto', border:'none'}}>{stateRef.current}</div>
         </div>
     )
 }
