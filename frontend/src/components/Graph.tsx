@@ -14,15 +14,17 @@ const Colors: {[key: string]: string} = {
   'req3': 'blue'
 }
 
-class Graph extends Component<AppProps, {container: HTMLElement | null, data: Courses}> {
+class Graph extends Component<AppProps, {container: HTMLElement | null, data: Courses, chosenCourse: string}> {
 
   constructor(props: AppProps) {
     super(props);
     this.state = {
       container: null,
-      data: null
+      data: null,
+      chosenCourse: ''
     }
     this.Fit = this.Fit.bind(this);
+    this.ChooseCourse = this.ChooseCourse.bind(this);
   }
 
   async componentDidMount() {
@@ -87,7 +89,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
         rankDir: 'TB',
         ranker: 'longest-path'
       }
-    const graphLayout = graph.layout(layout)
+    const graphLayout = graph.layout(layout);
 
     graph.on('tap', 'node', (node) => {
       let nodeId = node.target.id();
@@ -111,6 +113,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
     graph.maxZoom(maximumZoom);
     const elements = graph.elements();
     graph.fit(elements);
+    //this.setState({ graph: graph });
     return graph;
   }
 
@@ -173,14 +176,21 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
     }
   }
 
+  ChooseCourse(chosenCourse: string) {
+    this.setState({ chosenCourse: chosenCourse });
+  }
+
   render() {
     return(
       <div>
         <div style={{display: 'flex'}}>
           <div className='graph' id='cytoscape' />
-          <div className='search'>
-            <Search data={this.state.data}/>
-          </div>
+            <div className='search'>
+              {/**
+               * 
+               //@ts-ignore */}
+              <Search data={this.state.data} action={this.ChooseCourse}/>
+            </div>
         </div>
       </div>
     );

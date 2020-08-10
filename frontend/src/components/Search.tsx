@@ -8,11 +8,8 @@ import Data from '../types/data'
  * 
  * @param data - The object containing the course data, called from the internal API.
  */
-
-function Search(data: Data) {
-
+function Search(props: any) {
     const [searchTerm, setSearchTerm] = useState("");
-    const [searchBar, setSearchBar] = useState(null);
     const [courses, setCourses] = useState(null);
     const [fuseList, setFuseList] = useState(null);
     const stateRef = useRef();
@@ -28,10 +25,9 @@ function Search(data: Data) {
       keys: ['subject', 'number']
     }
     
-    const handleSearch = () => {
-      if (searchBar) {
-        setSearchTerm(searchBar.value);
-      }
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+      let value = event.target.value;
+      setSearchTerm(value);
       if (searchTerm) {
         // Removes whitespace from the search.
         const query = searchTerm.replace(/\s/g, '');
@@ -42,21 +38,21 @@ function Search(data: Data) {
 
     useEffect(() => {
       const search: HTMLElement = document.getElementById('search-bar');
-      setCourses(data.data);
+      setCourses(props.data);
 
       if (courses) {
         fuse = new Fuse(courses, options);
       }
 
-      if (search) {
-        setSearchBar(search);
-      }
     });
 
     return (
         <div>
-            <input type='text' id='search-bar' placeholder='search' onChange={handleSearch} value={searchTerm}/>
-            <div style={{color: 'white'}}>{stateRef.current}</div>
+            <input type='text' id='search-bar' placeholder='Enter a course number' onChange={handleSearch} value={searchTerm}/>
+            {/**
+             * 
+             //@ts-ignore */}
+            <div id='search-result' onClick={() => props.action(stateRef.current)} style={{backgroundColor: 'white', color: 'black'}}>{stateRef.current}</div>
         </div>
     )
 }
