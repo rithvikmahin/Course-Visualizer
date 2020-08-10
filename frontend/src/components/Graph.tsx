@@ -97,6 +97,12 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
       this.GenerateGraphParents(node, graph, false);
     });
 
+    graph.on('tap', (event) => {
+      if (event.target == graph) {
+        this.RestoreGraph(graph);
+      }
+    })
+
     graphLayout.run();
     graph.resize();
     const minimumZoom = 0.35;
@@ -108,6 +114,13 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
     return graph;
   }
 
+  /**
+   * 
+   * @param node - The selected node from either the graph or the search bar.
+   * @param graph - The cytoscape graph object.
+   * @param isCollection - Checks if the selection came from a graph click or a search bar click.
+   * @param id - The id of the node if it came from a search bar click.
+   */
   GenerateGraphParents(node: cytoscape.EventObject | cytoscape.Collection, graph: cytoscape.Core, isCollection: boolean, id?: string) {
     let parentNodes;
     if (!(isCollection)) {
@@ -119,15 +132,25 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
       parentNodes = parentNodes.add(node.target); 
       // Add all other nodes to the other collection.
     } else {
+      // Similar to above.
       node = node as cytoscape.Collection;
       parentNodes = graph.nodes('[id="' + id + '"]').predecessors();   
       parentNodes = parentNodes.add(node); 
     }
     let others = graph.elements().not(parentNodes);  
-    //cy.remove() returns the deleted nodes and edges, so that you can just do cy.add() afterwards
-    const referenceNodes = graph.remove(others);  
+    //graph.remove() returns the deleted nodes and edges, so that you can just do cy.add() afterwards
+    const removedNodes = graph.remove(others);  
     graph.elements().makeLayout(layout).run(); 
     graph.fit(graph.elements());
+  }
+
+  RestoreGraph(graph: cytoscape.Core) {
+    const container = this.state.container;
+    if (container) {
+      const graph = this.Cytoscape(container as HTMLElement);
+      graph.elements().makeLayout(layout).run(); 
+      graph.fit(graph.elements());
+    }
   }
   /**
    * 
