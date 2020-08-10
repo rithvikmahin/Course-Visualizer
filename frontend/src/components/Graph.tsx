@@ -14,6 +14,18 @@ const Colors: {[key: string]: string} = {
   'req3': 'blue'
 }
 
+ 
+// Assigns a layout and fits the graph to the screen. 
+const layout = 
+  {
+    name: 'dagre',
+    spacingFactor: 0.8,
+    nodeSep: 25,
+    rankSep: 300,
+    rankDir: 'TB',
+    ranker: 'longest-path'
+  }
+
 class Graph extends Component<AppProps, {container: HTMLElement | null, data: Courses, chosenCourse: string}> {
 
   constructor(props: AppProps) {
@@ -78,31 +90,11 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
 
     const courses = this.state.data;
     graph = this.GenerateGraph(graph, courses);
-    
-    // Assigns a layout and fits the graph to the screen. 
-    let layout = 
-      {
-        name: 'dagre',
-        spacingFactor: 0.8,
-        nodeSep: 25,
-        rankSep: 300,
-        rankDir: 'TB',
-        ranker: 'longest-path'
-      }
+
     const graphLayout = graph.layout(layout);
 
     graph.on('tap', 'node', (node) => {
-      let nodeId = node.target.id();
-      // Add all predecessors (nodes and edges) to a collection.
-      let parentNodes = graph.nodes('[id="' + nodeId + '"]').predecessors();   
-      // Add the selected node to a collection.
-      parentNodes = parentNodes.add(node.target); 
-      // Add all other nodes to the other collection.
-      let others = graph.elements().not(parentNodes);  
-      //cy.remove() returns the deleted nodes and edges, so that you can just do cy.add() afterwards
-      const referenceNodes = graph.remove(others);  
-      graph.elements().makeLayout(layout).run(); 
-      graph.fit(graph.elements());
+      this.GenerateGraphParents(node, graph, false);
     });
 
     graphLayout.run();
@@ -113,10 +105,30 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
     graph.maxZoom(maximumZoom);
     const elements = graph.elements();
     graph.fit(elements);
-    //this.setState({ graph: graph });
     return graph;
   }
 
+  GenerateGraphParents(node: cytoscape.EventObject | cytoscape.Collection, graph: cytoscape.Core, isCollection: boolean, id?: string) {
+    let parentNodes;
+    if (!(isCollection)) {
+      node = node as cytoscape.EventObject;
+      let nodeId = node.target.id();
+      // Add all predecessors (nodes and edges) to a collection.
+      parentNodes = graph.nodes('[id="' + nodeId + '"]').predecessors();  
+      // Add the selected node to a collection.
+      parentNodes = parentNodes.add(node.target); 
+      // Add all other nodes to the other collection.
+    } else {
+      node = node as cytoscape.Collection;
+      parentNodes = graph.nodes('[id="' + id + '"]').predecessors();   
+      parentNodes = parentNodes.add(node); 
+    }
+    let others = graph.elements().not(parentNodes);  
+    //cy.remove() returns the deleted nodes and edges, so that you can just do cy.add() afterwards
+    const referenceNodes = graph.remove(others);  
+    graph.elements().makeLayout(layout).run(); 
+    graph.fit(graph.elements());
+  }
   /**
    * 
    * @param graph - An empty cytoscape graph with preconfigured settings.
@@ -177,7 +189,17 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
   }
 
   ChooseCourse(chosenCourse: string) {
-    this.setState({ chosenCourse: chosenCourse });
+    this.setState(
+      { chosenCourse: chosenCourse },
+      () => {
+        const container = this.state.container;
+        if (container) {
+          const graph = this.Cytoscape(container as HTMLElement);
+          const id = this.state.chosenCourse;
+          const node = graph.getElementById(id);
+          this.GenerateGraphParents(node, graph, true, id);
+        }  
+      });
   }
 
   render() {
