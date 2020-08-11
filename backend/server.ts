@@ -15,4 +15,4 @@ app.get('/courses', (req: Request, res: Response) => {
 })
 
 
-app.listen(5000, () => {console.log('The server is running.')});
+app.listen(5000, () => {});

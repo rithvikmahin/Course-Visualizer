@@ -12,6 +12,22 @@
     text-align: center;
 }
 
-.searchbar {
-    background: #202020;
+.search-bar {
+    height: 30px;
+    color: white;
+    background: #101010;
+    font-family: Bahnschrift;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    width: 72%;
+}
+
+.search-result {
+    font-family: Bahnschrift;
+    background-color: #303030;
+    color: white;
+    width: 72%;
+    margin: auto;
+    border: none;
 }

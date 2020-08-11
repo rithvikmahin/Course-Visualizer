@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import '../css/style.css'
 import Fuse from 'fuse.js'
 import Courses from '../types/json'
-import Data from '../types/data'
 
 /**
  * 
@@ -49,11 +48,11 @@ function Search(props: any) {
 
     return (
         <div>
-            <input type='text' id='search-bar' style={{fontFamily: 'Bahnschrift'}} placeholder='Enter a course number' onChange={handleSearch} value={searchTerm}/>
+            <input type='text' id='search-bar' className='search-bar' placeholder='Enter a course number' onChange={handleSearch} value={searchTerm}/>
             {/**
              * 
              //@ts-ignore */}
-            <div id='search-result' onClick={() => props.action(stateRef.current)} style={{fontFamily: 'Bahnschrift', backgroundColor: 'grey', color: 'white', width: '75%', margin:'auto', border:'none'}}>{stateRef.current}</div>
+            <div id='search-result' className='search-result' onClick={() => props.action(stateRef.current)}>{stateRef.current}</div>
         </div>
     )
 }
