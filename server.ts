@@ -18,7 +18,7 @@ app.get('*', (req: Request, res: Response) => {
 app.get('/courses', (req: Request, res: Response) => {
   //data.GetData().then((data: Courses) => res.send(data));
   res.send(data);
-})
+});
 
 app.get('*', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '/client/build', 'index.html'));

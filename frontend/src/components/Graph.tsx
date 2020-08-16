@@ -42,7 +42,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
   }
 
   async componentDidMount() {
-    const data = await axios.get('http://localhost:5000/courses');
+    const data = await axios.get('/courses');
     this.setState({ data: data.data });
     const container = document.getElementById('cytoscape');
     this.Cytoscape(container as HTMLElement);
