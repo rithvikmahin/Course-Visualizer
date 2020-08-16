@@ -1,5 +1,6 @@
 {
   "name": "course",
+  "homepage": "https://thawing-refuge-60901.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
