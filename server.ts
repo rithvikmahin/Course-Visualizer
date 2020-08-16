@@ -9,10 +9,10 @@ import path from 'path'
 const app = express();
 app.use(cors());
 
-express.static(path.join(__dirname, '/client/build'));
+express.static(path.join(__dirname, '/frontend/build'));
 
 app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '/frontend/build', 'index.html'));
 });
 
 app.get('/courses', (req: Request, res: Response) => {
@@ -21,7 +21,7 @@ app.get('/courses', (req: Request, res: Response) => {
 });
 
 app.get('*', (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '/frontend/build', 'index.html'));
 });
 
 app.listen(process.env.PORT, () => {console.log('The server is running.')});
