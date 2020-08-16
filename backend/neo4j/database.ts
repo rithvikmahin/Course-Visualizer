@@ -11,7 +11,7 @@ const courses: Courses[] = coursesRaw;
  */
 async function PopulateData() {
     const driver = neo4j.driver(
-        'bolt://localhost',
+        `${process.env.HOSTNAME}`,
          neo4j.auth.basic(`${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`)
     );
     const session = driver.session();
@@ -81,9 +81,10 @@ async function PopulateData() {
  */
 async function GetData() {
     const driver = neo4j.driver(
-        'bolt://localhost',
-         neo4j.auth.basic(`neo4j`, `neo4j`)
+        `REPLACE WITH EC2 INSTANCE`,
+         neo4j.auth.basic(`REPLACE WITH USERNAME`, `REPLACE WITH PASSWORD`)
     );
+
     const session = driver.session();
     let result: Array<object> = [];
     
@@ -131,5 +132,5 @@ async function GetData() {
     }
     return result;
 }
-GetData();
+
 module.exports.GetData = GetData;

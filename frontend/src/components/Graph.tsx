@@ -100,7 +100,11 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
       if (event.target == graph) {
         this.RestoreGraph(graph);
       }
-    })
+    });
+
+    graph.on('mouseover', 'node', (node) => {
+      this.DisplayNodeInfo(node);
+    });
 
     graphLayout.run();
     graph.resize();
@@ -111,6 +115,18 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
     const elements = graph.elements();
     graph.fit(elements);
     return graph;
+  }
+
+  DisplayNodeInfo(node: cytoscape.EventObject) {
+    const nodeId = node.target.id();
+    const subject = nodeId.replace(/[0-9]/g, '');
+    const number = nodeId.replace(/[A-Z]/g, '');
+    
+    // //@ts-ignore
+    // if (this.state.data['subject'] == subject && this.state.data['number'] == number) {
+
+    // }
+
   }
 
   /**
