@@ -1,0 +1,1386 @@
+[
+    {
+        "CS": [
+            {
+                "course": "CS100",
+                "name": "Freshman Orientation",
+                "description": "Introduction to Computer Science as a field and career for computer science majors. Overview of the field and specific examples of problem areas and methods of solution.",
+                "credits": "credit: 1 Hour.",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS101",
+                "name": "Intro Computing: Engrg & Sci",
+                "description": "Fundamental principles, concepts, and methods of computing, with emphasis on applications in the physical sciences and engineering. Basic problem solving and programming techniques; fundamental algorithms and data structures; use of computers in solving engineering and scientific problems. Intended for engineering and science majors. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "MATH220",
+                        "MATH221"
+                    ]
+                }
+            },
+            {
+                "course": "CS102",
+                "name": "Little Bits to Big Ideas",
+                "description": "Same as INFO102. See INFO102.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS105",
+                "name": "Intro Computing: Non-Tech",
+                "description": "Computing as an essential tool of academic and professional activities. Functions and interrelationships of computer system components: hardware, systems and applications software, and networks. Widely used application packages such as spreadsheets and databases. Concepts and practice of programming for the solution of simple problems in different application areas. Intended for non-science and non-engineering majors. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "MATH112"
+                    ]
+                }
+            },
+            {
+                "course": "CS107",
+                "name": "Data Science Discovery",
+                "description": "Same as IS107 and STAT107. See STAT107.This course satisfies the General Education Criteria for:Quantitative Reasoning I",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS125",
+                "name": "Intro to Computer Science",
+                "description": "Basic concepts in computing and fundamental techniques for solving computational problems. Intended as a first course for computer science majors and others with a deep interest in computing. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "THREE YEARS OF HIGH SCHOOL MATHEMATICS",
+                        "MATH112"
+                    ]
+                }
+            },
+            {
+                "course": "CS126",
+                "name": "Software Design Studio",
+                "description": "Fundamental principles and techniques of software development. Design, documentation, testing, and debugging software, with a significant emphasis on code review. Credit is not given for both CS242 and CS126. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS125"
+                    ]
+                }
+            },
+            {
+                "course": "CS173",
+                "name": "Discrete Structures",
+                "description": "Discrete mathematical structures frequently encountered in the study of Computer Science. Sets, propositions, Boolean algebra, induction, recursion, relations, functions, and graphs. Credit is not given for both CS173 and MATH213. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS125",
+                        "ECE220"
+                    ],
+                    "req2": [
+                        "MATH220",
+                        "MATH221"
+                    ]
+                }
+            },
+            {
+                "course": "CS196",
+                "name": "Freshman Honors",
+                "description": "Offered for honors credit in conjunction with other 100-level computer science courses taken concurrently. A special examination may be required for admission to this course. May be repeated. ",
+                "credits": "credit: 1 Hour.",
+                "prerequisite": {
+                    "req1": [
+                        "CONCURRENT REGISTRATION IN ANOTHER 100-LEVEL COMPUTER SCIENCE COURSE (SEE SCHEDULE)"
+                    ]
+                }
+            },
+            {
+                "course": "CS199",
+                "name": "Undergraduate Open Seminar in Computer Science",
+                "description": "Topics vary. Approved for Letter and S/U grading. May be repeated.",
+                "credits": "credit: 0 to 5 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS210",
+                "name": "Ethical & Professional Issues",
+                "description": "Ethics for the computing profession. Ethical decision-making; licensing; intellectual property, freedom of information, and privacy. Credit is not given for both CS210 and ECE316. ",
+                "credits": "credit: 2 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS225",
+                "name": "Data Structures",
+                "description": "Data abstractions: elementary data structures (lists, stacks, queues, and trees) and their implementation using an object-oriented programming language. Solutions to a variety of computational problems such as search on graphs and trees. Elementary analysis of algorithms. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS125",
+                        "ECE220"
+                    ],
+                    "req2": [
+                        "CS173",
+                        "MATH213",
+                        "MATH347",
+                        "MATH412",
+                        "MATH413"
+                    ]
+                }
+            },
+            {
+                "course": "CS233",
+                "name": "Computer Architecture",
+                "description": "Fundamentals of computer architecture: digital logic design, working up from the logic gate level to understand the function of a simple computer; machine-level programming to understand implementation of high-level languages; performance models of modern computer architectures to enable performance optimization of software; hardware primitives for parallelism and security. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS125"
+                    ],
+                    "req2": [
+                        "CS173"
+                    ],
+                    "req3": [
+                        "CREDIT",
+                        "CONCURRENT ENROLLMENT IN CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS240",
+                "name": "Introduction to Computer Systems",
+                "description": "Basics of computer systems. Number representations, assembly/machine language, abstract models of processors (fetch/execute, memory hierarchy), processes/process control, simple memory management, file I/O and directories, network programming, usage of cloud services. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225",
+                        "BOTH CS 205"
+                    ],
+                    "req2": [
+                        "CS 110C++"
+                    ]
+                }
+            },
+            {
+                "course": "CS241",
+                "name": "System Programming",
+                "description": "Basics of system programming, including POSIX processes, process control, inter-process communication, synchronization, signals, simple memory management, file I/O and directories, shell programming, socket network programming, RPC programming in distributed systems, basic security mechanisms, and standard tools for systems programming such as debugging tools. Credit is not given for both CS241 and ECE391. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ],
+                    "req2": [
+                        "CS233"
+                    ]
+                }
+            },
+            {
+                "course": "CS242",
+                "name": "Programming Studio",
+                "description": "Intensive programming lab intended to strengthen skills in programming. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241"
+                    ]
+                }
+            },
+            {
+                "course": "CS265",
+                "name": "Innovation Illinois: From Accessible Design to Supercomputing Cultures",
+                "description": "Same as IS265 and MACS265. See MACS265.",
+                "credits": "credit: 3 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS296",
+                "name": "Honors Course",
+                "description": "Group projects for honors credit in computer science. Sections of this course are offered in conjunction with other 200-level computer science courses taken concurrently. A special examination may be required for admission to this course. May be repeated. ",
+                "credits": "credit: 1 Hour.",
+                "prerequisite": {
+                    "req1": [
+                        "CONCURRENT REGISTRATION IN ANOTHER 200-LEVEL COMPUTER SCIENCE COURSE (SEE SCHEDULE)"
+                    ]
+                }
+            },
+            {
+                "course": "CS357",
+                "name": "Numerical Methods I",
+                "description": "Fundamentals of numerical methods for students in science and engineering; floating-point computation, systems of linear equations, approximation of functions and integrals, the single nonlinear equation, and the numerical solution of ordinary differential equations; various applications in science and engineering; programming exercises and use of high quality mathematical library routines. Same as MATH357. Credit is not given for CS357 if credit for CS450 has been earned. (Counts for advanced hours in LAS). ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS101",
+                        "CS105",
+                        "CS125"
+                    ],
+                    "req2": [
+                        "MATH241"
+                    ],
+                    "req3": [
+                        "MATH225",
+                        "MATH415",
+                        "MATH416",
+                        "ASRM406"
+                    ]
+                }
+            },
+            {
+                "course": "CS361",
+                "name": "Probability & Statistics for Computer Science",
+                "description": "Introduction to probability theory and statistics with applications to computer science. Topics include: visualizing datasets, summarizing data, basic descriptive statistics, conditional probability, independence, Bayes theorem, random variables, joint and conditional distributions, expectation, variance and covariance, central limit theorem. Markov inequality, Chebyshev inequality, law of large numbers, Markov chains, simulation, the PageRank algorithm, populations and sampling, sample mean, standard error, maximum likelihood estimation, Bayes estimation, hypothesis testing, confidence intervals, linear regression, principal component analysis, classification, and decision trees. Same as STAT361. Credit is not given for both CS361 and ECE313. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "MATH220",
+                        "MATH221"
+                    ],
+                    "req2": [
+                        "CREDIT",
+                        "CONCURRENT REGISTRATION IN  MATH225",
+                        "MATH415",
+                        "MATH416"
+                    ]
+                }
+            },
+            {
+                "course": "CS374",
+                "name": "Introduction to Algorithms & Models of Computation",
+                "description": "Analysis of algorithms, major paradigms of algorithm design including recursive algorithms, divide-and-conquer algorithms, dynamic programming, greedy algorithms, and graph algorithms. Formal models of computation including finite automata and Turing machines. Limitations of computation arising from fundamental notions of algorithm and from complexity-theoretic constraints. Reductions, undecidability and NP-completeness. Same as ECE374. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS173",
+                        "MATH213"
+                    ],
+                    "req2": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS397",
+                "name": "Individual Study",
+                "description": "May be repeated. ",
+                "credits": "credit: 1 to 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CONSENT OF INSTRUCTOR"
+                    ]
+                }
+            },
+            {
+                "course": "CS398",
+                "name": "Special Topics",
+                "description": "Subject offerings of new and developing areas of knowledge in computer science intended to augment the existing curriculum. See Class Schedule or departmental course information for topics and prerequisites. May be repeated in the same or separate terms if topics vary.",
+                "credits": "credit: 1 to 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS410",
+                "name": "Text Information Systems",
+                "description": "Theory, design, and implementation of text-based information systems. Text analysis, retrieval models (e.g., Boolean, vector space, probabilistic), text categorization, text filtering, clustering, retrieval system design and implementation, and applications to web information management. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS411",
+                "name": "Database Systems",
+                "description": "Examination of the logical organization of databases: the entity-relationship model; the hierarchical, network, and relational data models and their languages. Functional dependencies and normal forms. Design, implementation, and optimization of query languages; security and integrity; concurrency control, and distributed database systems. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS412",
+                "name": "Introduction to Data Mining",
+                "description": "Concepts, techniques, and systems of data warehousing and data mining. Design and implementation of data warehouse and on-line analytical processing (OLAP) systems; data mining concepts, methods, systems, implementations, and applications. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS413",
+                "name": "Intro to Combinatorics",
+                "description": "Same as MATH413. See MATH413.",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS414",
+                "name": "Multimedia Systems",
+                "description": "Organization and structure of modern multimedia systems; audio and video encoding; quality of service concepts; scheduling algorithms for multimedia within OS and networks multimedia protocols over high-speed networks; synchronization schemes, user-interface design; multimedia teleservices. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241",
+                        "ECE391"
+                    ]
+                }
+            },
+            {
+                "course": "CS418",
+                "name": "Interactive Computer Graphics",
+                "description": "Basic mathematical tools and computational techniques for modeling, rendering, and animating 3-D scenes. Same as CSE427. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ],
+                    "req2": [
+                        "MATH225",
+                        "MATH415"
+                    ],
+                    "req3": [
+                        "MATH241"
+                    ]
+                }
+            },
+            {
+                "course": "CS419",
+                "name": "Production Computer Graphics",
+                "description": "Advanced methods for representing, displaying, and rendering two-, three-, and four-dimensional scenes. General algebraic curves and surfaces, splines, Gaussian and bump-function representation, fractals, particle systems, constructive solid geometry methods, lighting models, radiosity, advanced ray-tracing methods, surface texturing animation techniques, data visualization methods. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS418"
+                    ]
+                }
+            },
+            {
+                "course": "CS420",
+                "name": "Parallel Progrmg: Sci & Engrg",
+                "description": "Fundamental issues in design and development of parallel programs for various types of parallel computers. Various programming models according to both machine type and application area. Cost models, debugging, and performance evaluation of parallel programs with actual application examples. Same as CSE402 and ECE492. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS421",
+                "name": "Programming Languages & Compilers",
+                "description": "Structure of programming languages and their implementation. Basic language design principles; abstract data types; functional languages; type systems; object-oriented languages. Basics of lexing, parsing, syntax-directed translation, semantic analysis, and code generation. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS233",
+                        "CS240"
+                    ],
+                    "req2": [
+                        "CS374"
+                    ],
+                    "req3": [
+                        "MATH225",
+                        "MATH415",
+                        "MATH416",
+                        "ASRM406"
+                    ]
+                }
+            },
+            {
+                "course": "CS422",
+                "name": "Programming Language Design",
+                "description": "Exploration of major language design paradigms using imperative and functional programming as unifying themes. Tools include both practical language processor construction and theoretical models. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS421"
+                    ]
+                }
+            },
+            {
+                "course": "CS423",
+                "name": "Operating Systems Design",
+                "description": "Organization and structure of modern operating systems and concurrent programming concepts. Deadlock, virtual memory, processor scheduling, and disk systems. Performance, security, and protection. Same as CSE423. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241",
+                        "ECE391"
+                    ]
+                }
+            },
+            {
+                "course": "CS424",
+                "name": "Real-Time Systems",
+                "description": "Supervisory control aspects of Cyber Physical Systems (CPS): fundamentals of reliability analysis, real-time scheduling, simple feedback control, software fault tolerance architecture, wireless networking and energy saving, principles of safety critical system engineering. Student groups design and demonstrate supervisory control architecture for a robot. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241"
+                    ]
+                }
+            },
+            {
+                "course": "CS425",
+                "name": "Distributed Systems",
+                "description": "Protocols, specification techniques, global states and their determination, reliable broadcast, transactions and commitment, security, and real-time systems. Same as ECE428. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241",
+                        "ECE391"
+                    ]
+                }
+            },
+            {
+                "course": "CS426",
+                "name": "Compiler Construction",
+                "description": "Compiler structure, syntax analysis, syntax-directed translation, automatically constructed recognizers, semantic analysis, code generation, intermediate language, optimization techniques. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS421"
+                    ]
+                }
+            },
+            {
+                "course": "CS427",
+                "name": "Software Engineering I",
+                "description": "Software process, analysis and design. Software development paradigms, system engineering, function-based analysis and design, and object-oriented analysis and design. Course will use team-projects for hands-on exercises. Same as CSE426. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ],
+                    "req2": [
+                        "CS 373"
+                    ]
+                }
+            },
+            {
+                "course": "CS428",
+                "name": "Software Engineering II",
+                "description": "Continuation of CS427. Software development, management, and maintenance. Project and configuration management, collaborative development models, software quality assurance, interoperability domain engineering and software reuse, and software re-engineering. Same as CSE429. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS427"
+                    ]
+                }
+            },
+            {
+                "course": "CS429",
+                "name": "Software Engineering II, ACP",
+                "description": "Continuation of CS427. Identical to CS428 except for the additional writing component. See CS428. 3 undergraduate hours. 3 graduate hours. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS427"
+                    ]
+                }
+            },
+            {
+                "course": "CS431",
+                "name": "Embedded Systems",
+                "description": "A survey of sampled data systems and embedded architecture; key concepts in common embedded system applications; signal processing and control; embedded microprocessor and device interface; time-critical I/O handling; data communications; real-time operating systems and techniques for the development and analysis of embedded real-time software; hands-on laboratory projects. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241",
+                        "ECE391"
+                    ]
+                }
+            },
+            {
+                "course": "CS433",
+                "name": "Computer System Organization",
+                "description": "Computer hardware design and analysis and interface with software. Advanced processor design, including superscalar, out-of-order issue, branch prediction, and speculation. Memory hierarchy design, including advanced cache optimizations, main memory, and virtual memory. Principles of multiprocessor design, including shared-memory, cache coherence, synchronization, and consistency. Other advanced topics depending on time; e.g., GPUs and accelerators, warehouse computers and data centers, security. Same as CSE422. 3 undergraduate hours. 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS233"
+                    ]
+                }
+            },
+            {
+                "course": "CS434",
+                "name": "Mobile Computing & Application",
+                "description": "Same as ECE434. See ECE434.",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS436",
+                "name": "Computer Networking Laboratory",
+                "description": "Design, application, analysis, and deployment of communication protocols and system software behind modern cloud/compute/network infrastructures. Students learn the internals of modern system infrastructures, including operating system networking kernels, cloud application service code, and firewall and router configuration. Students will gain experience with widely-used and production-grade code and systems, such as Cisco IOS, the Linux networking stack, and Amazon Web Services. This class links theory with practice to prepare students to confidently carry out tasks they will commonly encounter in industry, such as building an enterprise network, deploying a large-scale cloud service, or implementing a new network protocol. Same as ECE435. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241",
+                        "ECE391"
+                    ]
+                }
+            },
+            {
+                "course": "CS438",
+                "name": "Communication Networks",
+                "description": "Layered architectures and the OSI Reference Model; design issues and protocols in the transport, network, and data link layers; architectures and control algorithms of local-area, point-to-point, and satellite networks; standards in networks access protocols; models of network interconnection; overview of networking and communication software. Same as ECE438. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241",
+                        "ECE391"
+                    ],
+                    "req2": [
+                        "ECE313",
+                        "MATH461",
+                        "MATH463"
+                    ]
+                }
+            },
+            {
+                "course": "CS439",
+                "name": "Wireless Networks",
+                "description": "Same as ECE439. See ECE439.",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS440",
+                "name": "Artificial Intelligence",
+                "description": "Major topics in and directions of research in artificial intelligence: basic problem solving techniques, knowledge representation and computer inference, machine learning, natural language understanding, computer vision, robotics, and societal impacts. Same as ECE448. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS445",
+                "name": "Computational Photography",
+                "description": "Computer vision techniques to enhance, manipulate, and create media from photo collections, such as panoramic stitching, face morphing, texture synthesis, blending, and 3D reconstruction. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225",
+                        "MATH225"
+                    ],
+                    "req2": [
+                        "MATH231"
+                    ]
+                }
+            },
+            {
+                "course": "CS446",
+                "name": "Machine Learning",
+                "description": "Principles and applications of machine learning. Main paradigms and techniques, including discriminative and generative methods, reinforcement learning: linear regression, logistic regression, support vector machines, deep nets, structured methods, dimensionality reduction, k-means, Gaussian mixtures, expectation maximization, Markov decision processes, and Q-learning. Application areas such as natural language and text understanding, speech recognition, computer vision, data mining, and adaptive computer systems, among others. Same as ECE449. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ],
+                    "req2": [
+                        "MATH225",
+                        "MATH415",
+                        "MATH416",
+                        "ASRM406"
+                    ],
+                    "req3": [
+                        "CS361",
+                        "ECE313",
+                        "MATH461",
+                        "STAT400"
+                    ]
+                }
+            },
+            {
+                "course": "CS447",
+                "name": "Natural Language Processing",
+                "description": "Part-of-speech tagging, parsing, semantic analysis and machine translation. Relevant linguistics concepts from morphology (word formation) and lexical semantics (the meaning of words) to syntax (sentence structure) and compositional semantics (the meaning of sentences). 3 undergraduate hours. 3 or 4 graduate hours. Credit is not given for both CS447 and LING406. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS374"
+                    ]
+                }
+            },
+            {
+                "course": "CS450",
+                "name": "Numerical Analysis",
+                "description": "Linear system solvers, optimization techniques, interpolation and approximation of functions, solving systems of nonlinear equations, eigenvalue problems, least squares, and quadrature; numerical handling of ordinary and partial differential equations. Same as CSE401, ECE491, and MATH450. 3 undergraduate hours. 3 or 4 graduate hours. Credit is not given for both CS450 and CS457. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS101",
+                        "CS125"
+                    ],
+                    "req2": [
+                        "CS357",
+                        "MATH415"
+                    ],
+                    "req3": [
+                        "MATH285"
+                    ]
+                }
+            },
+            {
+                "course": "CS457",
+                "name": "Numerical Methods II",
+                "description": "Continuation of CS357. Orthogonalization methods for least squares, Krylov subspace methods, non-linear equations and optimization in multiple dimensions, initial and boundary value problems for ordinary and partial differential equations. 3 undergraduate hours. No graduate credit. Credit is not given for both CS457 and CS450. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS357"
+                    ]
+                }
+            },
+            {
+                "course": "CS460",
+                "name": "Security Laboratory",
+                "description": "Operating systems security: access control, least privilege mechanism and malware techniques. Network security: firewalls, sniffing, tunnels, intrusion detection, AAA and worm structure. System security: forensics security architectures, and attack/defend exercises. Complements CS461 via hands-on project. Same as ECE419. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS461"
+                    ]
+                }
+            },
+            {
+                "course": "CS461",
+                "name": "Computer Security I",
+                "description": "Fundamental principles of computer and communications security and information assurance: ethics, privacy, notions of threat, vulnerabilities, and risk in systems, information warfare, malicious software, data secrecy and integrity issues, network security, trusted computing, mandatory and discretionary access controls, certification and accreditation of systems against security standards. Security mechanisms: authentication, auditing, intrusion detection, access control, cryptography, security protocols, key distribution. Same as ECE422. 4 undergraduate hours. 4 graduate hours. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241",
+                        "ECE391"
+                    ]
+                }
+            },
+            {
+                "course": "CS463",
+                "name": "Computer Security II",
+                "description": "Program security, trusted base, privacy, anonymity, non-interference, information flow, confinement, advanced auditing, forensics, intrusion detection, key management and distribution, policy composition and analysis, formal approaches to specification and verification of secure systems and protocols, and topics in applied cryptography. Same as ECE424. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS461"
+                    ]
+                }
+            },
+            {
+                "course": "CS465",
+                "name": "User Interface Design",
+                "description": "A project-focused course covering fundamental principles of user interface design, implementation, and evaluation. Small teams work on a term-long project that involves: analysis of the problem domain, user skills, and tasks; iterative prototyping of interfaces to address user needs; conducting several forms of evaluation such as cognitive walkthroughs and usability tests; implementation of the final prototype. Non-technical majors may enroll as non-programmers who participate in all aspects of the projects with the possible exception of implementation. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS466",
+                "name": "Introduction to Bioinformatics",
+                "description": "Algorithmic approaches in bioinformatics: (i) biological problems that can be solved computationally (e.g., discovering genes, and interactions among different genes and proteins); (ii) algorithmic techniques with wide applicability in solving these problems (e.g., dynamic programming and probabilistic methods); (iii) practical issues in translating the basic algorithmic ideas into accurate and efficient tools that biologists may use. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS467",
+                "name": "Social Visualization",
+                "description": "Visualizing social interaction in networked spaces: investigation of patterns in networked communications systems such as messaging (email, instant messaging), social networking sites and collaborative sites; social network theory and visualizations; exploration of how to move beyond existing visualization techniques; visualizing the network identity over compilations of online data. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ]
+                }
+            },
+            {
+                "course": "CS468",
+                "name": "Tech and Advertising Campaigns",
+                "description": "Same as ADV492. See ADV492.",
+                "credits": "credit: 3 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS473",
+                "name": "Algorithms",
+                "description": "Design and analysis techniques, approximation algorithms, randomized algorithms and amortized analysis, and advanced topics such as network flow, linear programming, and dynamic data structures, among others. Same as CSE414 and MATH473. 4 undergraduate hours. 4 graduate hours. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS374"
+                    ],
+                    "req2": [
+                        "CS361",
+                        "MATH461",
+                        "STAT400"
+                    ]
+                }
+            },
+            {
+                "course": "CS475",
+                "name": "Formal Models of Computation",
+                "description": "Finite automata and regular languages; pushdown automata and context-free languages; Turing machines and recursively enumerable sets; linear-bounded automata and context-sensitive languages; computability and the halting problem; undecidable problems; recursive functions; Chomsky hierarchy; computational complexity. Same as MATH475. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS374"
+                    ]
+                }
+            },
+            {
+                "course": "CS476",
+                "name": "Program Verification",
+                "description": "Formal methods for demonstrating correctness and other properties of programs. Invariant assertions; Hoare axiomatics; well-founded orderings for proving termination; structural induction; computational induction; data structures; parallel programs; overview of predicate calculus. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ],
+                    "req2": [
+                        "CS374",
+                        "MATH414"
+                    ]
+                }
+            },
+            {
+                "course": "CS477",
+                "name": "Formal Software Development Methods",
+                "description": "Mathematical models, languages, and methods for software specification, development, and verification. Same as ECE478. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS225"
+                    ],
+                    "req2": [
+                        "CS374",
+                        "MATH414"
+                    ]
+                }
+            },
+            {
+                "course": "CS481",
+                "name": "Advanced Topics in Stochastic Processes & Applications",
+                "description": "Same as IE410. See IE410.",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS482",
+                "name": "Simulation",
+                "description": "Same as IE413. See IE413.",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS483",
+                "name": "Applied Parallel Programming",
+                "description": "Same as CSE408 and ECE408. See ECE408.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS484",
+                "name": "Parallel Programming",
+                "description": "Techniques for the programming of all classes of parallel computers and devices including shared memory and distributed memory multiprocessors, SIMD processors and co-processors, and special purpose devices. Key concepts in parallel programming such as reactive and transformational programming, speculation, speedup, isoefficiency, and load balancing. Synchronization primitives, libraries and languages for parallel programming such as OpenMP and MPI, performance monitoring, program tuning, analysis and programming of numerical and symbolic parallel algorithms. 3 undergraduate hours. 3 or 4 graduate hours. ",
+                "credits": "credit: 3 or 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS241"
+                    ]
+                }
+            },
+            {
+                "course": "CS491",
+                "name": "Seminar",
+                "description": "Seminar on topics of current interest as announced in the Class Schedule. 0 to 4 undergraduate hours. 0 to 4 graduate hours. Approved for S/U grading only. May be repeated in the same or separate terms if topics vary to a maximum of 4 hours. ",
+                "credits": "credit: 0 to 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "AS SPECIFIED FOR EACH TOPIC OFFERING",
+                        "SEE CLASS SCHEDULE",
+                        "DEPARTMENTAL COURSE DESCRIPTION"
+                    ]
+                }
+            },
+            {
+                "course": "CS492",
+                "name": "Senior Project I",
+                "description": "First part of a project course in computer science. Students work in teams to solve typical commercial or industrial problems. Work involves planning, design, and implementation. Extensive oral and written work is required both on-campus and possibly off-campus at sponsors' locations. CS492 must be taken as a sequence with either CS493 or CS494. 3 undergraduate hours. No graduate credit. Credit is not given for both CS492 and a project course in another engineering department for the same project. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "FOR COMPUTER SCIENCE MAJORS WITH SENIOR STANDING"
+                    ]
+                }
+            },
+            {
+                "course": "CS493",
+                "name": "Senior Project II, ACP",
+                "description": "Continuation of CS492. Identical to CS494 except for an additional writing component. See CS494. 3 undergraduate hours. No graduate credit. Credit is not given for both CS493 and a project course in another engineering department for the same project. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS492"
+                    ]
+                }
+            },
+            {
+                "course": "CS494",
+                "name": "Senior Project II",
+                "description": "Continuation of CS492. 3 undergraduate hours. No graduate credit. Credit is not given for both CS494 and a project course in another engineering department for the same project. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS492"
+                    ]
+                }
+            },
+            {
+                "course": "CS497",
+                "name": "CS Team Project",
+                "description": "Student teams work with CS faculty to complete a significant project requiring advanced knowledge of CS principles. Project topics vary. 1 to 3 undergraduate hours. No graduate credit. May be repeated in the same term up to 6 hours, if topics vary; may be repeated in separate terms. ",
+                "credits": "credit: 1 to 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "FOR MAJORS ONLY"
+                    ],
+                    "req2": [
+                        "JUNIOR",
+                        "SENIOR STANDING REQUIRED"
+                    ]
+                }
+            },
+            {
+                "course": "CS498",
+                "name": "Special Topics",
+                "description": "Subject offerings of new and developing areas of knowledge in computer science intended to augment the existing curriculum. See Class Schedule or departmental course information for topics and prerequisites. 1 to 4 undergraduate hours. 1 to 4 graduate hours. May be repeated in the same or separate terms if topics vary.",
+                "credits": "credit: 1 to 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS499",
+                "name": "Senior Thesis",
+                "description": "Research and thesis development experience in computer science underguidance of a faculty member. Literature search, oral presentation, analysis and implementation, paper preparation, and completion of a written thesis. 3 undergraduate hours. No graduate credit. May be repeated to a maximum of 6 hours. ",
+                "credits": "credit: 3 ",
+                "prerequisite": {
+                    "req1": [
+                        "CONSENT OF INSTRUCTOR"
+                    ]
+                }
+            },
+            {
+                "course": "CS508",
+                "name": "Manycore Parallel Algorithms",
+                "description": "Same as ECE508. See ECE508.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS510",
+                "name": "Advanced Information Retrieval",
+                "description": "Advanced concepts, models, and algorithms in information retrieval and major recent developments in the field, including historical milestones in information retrieval research, evaluation methodology, vector space retrieval model, probabilistic retrieval models, learning to rank algorithms, probabilistic topic models, information retrieval systems, text analytics, and topics of research frontiers in information retrieval. 4 graduate hours. No professional credit. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS410",
+                        "CS412",
+                        "CS446",
+                        "LING406"
+                    ]
+                }
+            },
+            {
+                "course": "CS511",
+                "name": "Advanced Data Management",
+                "description": "Advanced concepts in data management and information system design and implementation, and recent developments in the field. 1) Relational roots, objects and extensibility, query languages, data indexing, query processing, transaction processing, benchmarks, and 2) semi-structured data and unstructured data, information extraction, information integration, web search and mining, and other emerging directions in the field. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS411"
+                    ]
+                }
+            },
+            {
+                "course": "CS512",
+                "name": "Data Mining Principles",
+                "description": "An advanced course on principles and algorithms of data mining. Data cleaning and integration; descriptive and predictive mining; mining frequent, sequential, and structured patterns; clustering, outlier analysis and fraud detection; stream data, web, text, and biomedical data mining; security and privacy in data mining; research frontiers. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS412"
+                    ]
+                }
+            },
+            {
+                "course": "CS513",
+                "name": "Theory & Practice of Data Cleaning",
+                "description": "Same as IS537. See IS537.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS519",
+                "name": "Scientific Visualization",
+                "description": "Visualization techniques useful in analysis of engineering and scientific data. Physical models; methods of computational science; two- and three-dimensional data types; visual representation schemes for scalar, vector, and tensor data; isosurface and volume visualization methods; visual monitoring; interactive steering. Same as CSE527. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS418"
+                    ]
+                }
+            },
+            {
+                "course": "CS522",
+                "name": "Programming Language Semantics",
+                "description": "Theory of programming languages including functional programming, meta-circular interpreters, typed, untyped and polymorphic lambda-calculi, and denotational semantics. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS422"
+                    ],
+                    "req2": [
+                        "CS426"
+                    ]
+                }
+            },
+            {
+                "course": "CS523",
+                "name": "Advanced Operating Systems",
+                "description": "Advanced concepts in operating system design and coverage of recent research directions. Resource management for parallel and distributed systems. Interaction between operating system design and computer architectures. Process management, virtual memory, interprocess communication, context switching, parallel and distributed file system designs, persistent objects, process and data migration, load balancing, security, protection. Term projects. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS423",
+                        "CS425"
+                    ],
+                    "req2": [
+                        "CS433"
+                    ]
+                }
+            },
+            {
+                "course": "CS524",
+                "name": "Concurrent Progrmg Languages",
+                "description": "Theory of concurrency and concurrent programming languages. Formal models of concurrent computation such as process algebras, nets, and actors; high level concurrent programming languages and their operational semantics; methods for reasoning about correctness and complexity of concurrent programs. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS422"
+                    ],
+                    "req2": [
+                        "CS475",
+                        "CS476"
+                    ]
+                }
+            },
+            {
+                "course": "CS525",
+                "name": "Advanced Distributed Systems",
+                "description": "Peer-to-peer systems, sensor networks, and fundamental theoretical distributed computing. Review of classical work in each area, and application of design methodologies to explore overlaps across them. Emphasis on protocol design, systems issues, and theory. Reading selections are roughly two-third classical to one-third contemporary. Students write critiques, make presentations, and create a conference paper in a systematic manner. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS423",
+                        "CS425",
+                        "CS438"
+                    ]
+                }
+            },
+            {
+                "course": "CS526",
+                "name": "Advanced Compiler Construction",
+                "description": "Incremental and interactive compiling, error correction, code optimization, models of code generators. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS426"
+                    ]
+                }
+            },
+            {
+                "course": "CS527",
+                "name": "Topics in Software Engineering",
+                "description": "Fault-tolerant software, software architecture, software patterns, multi-media software, and knowledge-based approaches to software engineering. Case studies. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS428",
+                        "CS429"
+                    ]
+                }
+            },
+            {
+                "course": "CS528",
+                "name": "Obj-Oriented Progrmg & Design",
+                "description": "Principles of object-oriented design; design patterns; use and design of frameworks; reflection, refractoring, use of unit tests as specifications. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS427"
+                    ]
+                }
+            },
+            {
+                "course": "CS533",
+                "name": "Parallel Computer Architecture",
+                "description": "Theoretical aspects of parallel and pipeline computation; time and processor bounds on classes of computations; data alignment network speed and cost bounds; conflict-free access memories; overall computer system ideas. Same as CSE522. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS433"
+                    ]
+                }
+            },
+            {
+                "course": "CS536",
+                "name": "Fault-Tolerant Dig Syst Design",
+                "description": "Same as ECE542. See ECE542.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS538",
+                "name": "Advanced Computer Networks",
+                "description": "Advanced concepts in computer networks, including congestion control, quality of service, naming, routing, wireless networks, Internet architecture, measurement, network security, and selected recent research directions. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS438"
+                    ]
+                }
+            },
+            {
+                "course": "CS539",
+                "name": "Distributed Algorithms",
+                "description": "Same as ECE526. See ECE526.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS541",
+                "name": "Computer Systems Analysis",
+                "description": "Same as ECE541. See ECE541.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS543",
+                "name": "Computer Vision",
+                "description": "Same as ECE549. See ECE549.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS544",
+                "name": "Optimiz in Computer Vision",
+                "description": "Applications of continuous and discrete optimization to problems in computer vision and machine learning, with particular emphasis on large-scale algorithms and effective approximations: gradient-based learning; Newton's method and variants, applied to structure from motion problems; the augmented Lagrangian method and variants; interior-point methods; SMO and other specialized algorithms for support vector machines; flows and cuts as examples of primal-dual methods; dynamics programming, hidden Markov models, and parsing: 0-1 quadratic forms, max-cut, and Markov random-fields solutions. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS450"
+                    ],
+                    "req2": [
+                        "CS473"
+                    ]
+                }
+            },
+            {
+                "course": "CS546",
+                "name": "Machine Learning in NLP",
+                "description": "Central learning frameworks and techniques that have emerged in the field of natural language processing and found applications in several areas in text and speech processing: from information retrieval and extraction, through speech recognition to syntax, semantics and language understanding related tasks. Examination of the theoretical paradigms -- learning theoretic, probabilistic, and information theoretic -- and the relations among them, as well as the main algorithmic techniques developed within each paradigm and in key natural language applications. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS446"
+                    ],
+                    "req2": [
+                        "CS473"
+                    ]
+                }
+            },
+            {
+                "course": "CS547",
+                "name": "Deep Learning",
+                "description": "Same as IE534. See IE534.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS548",
+                "name": "Models of Cognitive Processes",
+                "description": "Formal models and concepts in automated cognition; integrating machine learning and prior knowledge; current approaches and detailed analyses of the role of reasoning in the learning process; computational complexity and fundamental tradeoffs between expressiveness and tractability; implications for state-of-the-art artificial intelligence areas such as automated planning, the semantic web, relational learning, structured prediction, latent models, structure learning, theory formation, etc.; philosophical and psychological aspects of integrating analytic and empirical evidence. Same as ECE548. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS440",
+                        "CS446"
+                    ]
+                }
+            },
+            {
+                "course": "CS549",
+                "name": "Seminar in Cognitive Science",
+                "description": "Same as PSYC514, ANTH514, EPSY551, LING570, and PHIL514. See PSYC514.",
+                "credits": "credit: 2 or 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS554",
+                "name": "Parallel Numerical Algorithms",
+                "description": "Numerical algorithms for parallel computers: parallel algorithms in numerical linear algebra (dense and sparse solvers for linear systems and the algebraic eigenvalue problem), numerical handling of ordinary and partial differential equations, and numerical optimization techniques. Same as CSE512. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS450",
+                        "CS457",
+                        "CS555"
+                    ]
+                }
+            },
+            {
+                "course": "CS555",
+                "name": "Numerical Methods for PDEs",
+                "description": "Numerical techniques for initial and boundary value problems in partial differential equations. Finite difference and finite element discretization techniques, direct and iterative solution methods for discrete problems, and programming techniques and usage of software packages. Same as CSE510 and MATH552. 4 graduate hours. No professional credit. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS450",
+                        "CS457"
+                    ]
+                }
+            },
+            {
+                "course": "CS556",
+                "name": "Iterative & Multigrid Methods",
+                "description": "Comprehensive treatment of algebraic and multigrid iterative methods to solve systems of equations, primarily linear equations arising from discretization of partial differential equations. Same as CSE511.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS558",
+                "name": "Topics in Numerical Analysis",
+                "description": "Advanced topics in numerical analysis selected from areas of current research. Same as CSE513. May be repeated. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "AS SPECIFIED FOR EACH TOPIC OFFERING",
+                        "SEE SCHEDULE",
+                        "DEPARTMENTAL COURSE DESCRIPTION"
+                    ]
+                }
+            },
+            {
+                "course": "CS563",
+                "name": "Advanced Computer Security",
+                "description": "Current research trends in computer and network security. Privacy, tamper-resistance, unwanted traffic, monitoring and surveillance, and critical infrastructure protection. Subtopics will vary depending upon current research trends. Students work in teams in close coordination with the course instructor to develop one of the topics in depth by carrying out background research and an exploratory project. Same as ECE524. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS461",
+                        "CS463"
+                    ]
+                }
+            },
+            {
+                "course": "CS565",
+                "name": "Human-Computer Interaction",
+                "description": "In-depth coverage of advanced topics in human-computer interaction (HCI). Applied models of human performance and attention, design tools for creative design tasks, interruptions and peripheral displays, gestures, and bimanual input, and usability evaluation techniques. Students complete a research-oriented term project of their choosing. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS465"
+                    ]
+                }
+            },
+            {
+                "course": "CS571",
+                "name": "Combinatorial Mathematics",
+                "description": "Same as MATH580. See MATH580.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS572",
+                "name": "Extremal Graph Theory",
+                "description": "Same as MATH581. See MATH581.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS573",
+                "name": "Algorithms",
+                "description": "NP-completeness, design and analysis techniques, approximation algorithms, randomized algorithms, combinatorial optimization, linear programming. Intended for graduate students in Computer Science. Same as CSE515. 4 graduate hours. No professional credit.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS574",
+                "name": "Randomized Algorithms",
+                "description": "Basic and advanced concepts in the design and analysis of randomized algorithms. Sampling; concentration inequalities such as Chernoff-Hoeffding bounds; probabilistic method; random walks, dimension reduction; entropy; martingales and Azuma's inequality; derandomization. Randomized algorithms for sorting and searching; graphs; geometric problems. Basics of pseudorandomness and randomized complexity classes. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS473"
+                    ],
+                    "req2": [
+                        "MATH461",
+                        "STAT400"
+                    ]
+                }
+            },
+            {
+                "course": "CS575",
+                "name": "Methods of Combinatorics",
+                "description": "Same as MATH584. See MATH584.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS576",
+                "name": "Topics in Automated Deduction",
+                "description": "Advanced topics in computer-aided methods for formal deduction, selected from areas of current research, such as: resolution theorem proving strategies, special relations, equational reasoning, unification theory, rewrite systems, mathematical induction, program derivation, hybrid inference systems, and programming with logic. May be repeated in separate terms. ",
+                "credits": "credit: 2 to 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "AS SPECIFIED FOR EACH TOPIC OFFERING",
+                        "SEE SCHEDULE",
+                        "DEPARTMENTAL COURSE DESCRIPTION"
+                    ]
+                }
+            },
+            {
+                "course": "CS579",
+                "name": "Computational Complexity",
+                "description": "Turing machines; determinism and non-determinism; time and space hierarchy theorems; speed-up and tape compression; Blum axioms; structure of complexity classes NP, P, NL, L, and PSPACE; complete problems; randomness and complexity classes RP, RL, and BPP; alternation, polynomial-time hierarchy; circuit complexity, parallel complexity, NC, and RNC; relativized computational complexity; time-space trade-offs. Same as ECE579. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS473",
+                        "CS475"
+                    ]
+                }
+            },
+            {
+                "course": "CS581",
+                "name": "Algorithmic Genomic Biology",
+                "description": "The purpose of the course is to give each student enough background and training in the area of algorithmic genomic biology so that each will be able to do research in this area, and publish papers. The main focus of the course is phylogeny (evolutionary tree) estimation, multiple sequence alignment, and genome-scale phylogenetics, which are problems that present very interesting challenges from a computational and statistical standpoint. Time permitting, we will also discuss computational problems in microbiome analysis, protein function and structure prediction, genome assembly, and even historical linguistics. Students will learn the mathematical and computational foundations in these areas, read the current literature, and do a team research project. The course is designed for doctoral students in computer science, computer engineering, bioengineering, mathematics, and statistics, and does not depend on any prior background in biology. The technical material will depend on discrete algorithms, graph theory, simulations, and probabilistic analysis of algorithms. 4 graduate hours. No professional credit. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS374"
+                    ],
+                    "req2": [
+                        "CS361/STAT361",
+                        "CONSENT OF INSTRUCTOR"
+                    ]
+                }
+            },
+            {
+                "course": "CS582",
+                "name": "Machine Learning for Bioinformatics",
+                "description": "This graduate course on bioinformatics introduces a selection of topics in computational biology and bioinformatics, with special emphasis on current problems in regulatory genomics and systems biology. Computational approaches discussed will focus on Machine Learning techniques such as Bayesian inference, graphical models, supervised learning and network analysis. Bioinformatics topics will be introduced through lectures by instructor and research paper presentations by students, and include regulatory sequence analysis, cistromics, epigenomics, regulatory network reconstruction, non-coding variant interpretation, and protein structure and function prediction. A research project involving real data analysis with techniques related to course content is mandatory and will help prepare students for bioinformatics research. 4 graduate hours. No professional credit. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS446"
+                    ],
+                    "req2": [
+                        "CREDIT",
+                        "CONCURRENT ENROLLMENT IN CS466"
+                    ],
+                    "req3": [
+                        "CONSENT OF INSTRUCTOR"
+                    ]
+                }
+            },
+            {
+                "course": "CS583",
+                "name": "Approximation Algorithms",
+                "description": "Approximation algorithms for NP-hard problems. Basic and advanced techniques in approximation algorithm design: combinatorial algorithms; mathematical programming methods including linear and semi-definite programming, local search methods, and others. Algorithms for graphs and networks, constraint satisfaction, packing and scheduling. ",
+                "credits": "credit: 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "CS573",
+                        "CONSENT OF INSTRUCTOR"
+                    ]
+                }
+            },
+            {
+                "course": "CS584",
+                "name": "Embedded System Verification",
+                "description": "Same as ECE584. See ECE584.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS585",
+                "name": "Hardware Verification",
+                "description": "Same as ECE519. See ECE519.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS586",
+                "name": "Combinatorial Optimization",
+                "description": "Same as IE519. See IE519.",
+                "credits": "credit: 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS591",
+                "name": "Advanced Seminar",
+                "description": "Seminar on topics of current interest as announced in the Class Schedule. Approved for S/U grading only. May be repeated in the same or separate terms if topics vary. ",
+                "credits": "credit: 0 to 4 ",
+                "prerequisite": {
+                    "req1": [
+                        "AS SPECIFIED FOR EACH TOPIC OFFERING",
+                        "SEE CLASS SCHEDULE",
+                        "DEPARTMENTAL COURSE DESCRIPTION"
+                    ]
+                }
+            },
+            {
+                "course": "CS597",
+                "name": "Individual Study",
+                "description": "Individual study or reading in a subject not covered in normal course offerings. May be repeated. ",
+                "credits": "credit: 2 to 16 ",
+                "prerequisite": {
+                    "req1": [
+                        "CONSENT OF INSTRUCTOR"
+                    ]
+                }
+            },
+            {
+                "course": "CS598",
+                "name": "Special Topics",
+                "description": "Subject offerings of new and developing areas of knowledge in computer science intended to augment the existing curriculum. See Class Schedule or departmental course information for topics and prerequisites. May be repeated in the same or separate terms if topics vary.",
+                "credits": "credit: 2 to 4 ",
+                "prerequisite": {}
+            },
+            {
+                "course": "CS599",
+                "name": "Thesis Research",
+                "description": "Approved for S/U grading only. May be repeated.",
+                "credits": "credit: 0 to 16 ",
+                "prerequisite": {}
+            }
+        ]
+    }
+]
