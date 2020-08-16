@@ -8,7 +8,7 @@ import path from 'path'
 
 const app = express();
 app.use(cors());
-app.use(express.static(path.join(__dirname, '/client/build')))
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.get('/courses', (req: Request, res: Response) => {
   //data.GetData().then((data: Courses) => res.send(data));
