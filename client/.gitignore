@@ -28,6 +28,7 @@ yarn-error.log*
 /.pnp
 .pnp.js
 
+
 # testing
 /coverage
 
@@ -47,3 +48,6 @@ yarn-error.log*
 
 # data
 src/json
+
+#extra 
+neo4j/.env

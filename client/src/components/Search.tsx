@@ -37,7 +37,6 @@ function Search(props: any) {
     }
 
     useEffect(() => {
-      const search: HTMLElement = document.getElementById('search-bar');
       setCourses(props.data);
 
       if (courses) {

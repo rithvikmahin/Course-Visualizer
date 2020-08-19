@@ -11,8 +11,8 @@ const courses: Courses[] = coursesRaw;
  */
 async function PopulateData() {
     const driver = neo4j.driver(
-        `bolt://localhost:7687`,
-         neo4j.auth.basic(`neo4j`, `neo4j`)
+        `${process.env.HOSTNAME}`,
+         neo4j.auth.basic(`${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`)
     );
     const session = driver.session();
     
@@ -88,8 +88,8 @@ async function PopulateData() {
  */
 async function GetData() {
     const driver = neo4j.driver(
-        `bolt://localhost:7687`,
-         neo4j.auth.basic(`neo4j`, `neo4j`)
+        `${process.env.HOSTNAME}`,
+         neo4j.auth.basic(`${process.env.DB_USERNAME}`, `${process.env.DB_PASSWORD}`)
     );
 
     const session = driver.session();

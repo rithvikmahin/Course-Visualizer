@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import cytoscape from 'cytoscape'
-import CytoscapeComponent from 'cytoscape';
 import dagre from 'cytoscape-dagre'
 import axios from 'axios'
 import '../css/style.css'
 import Search from './Search'
-import Course from './Course'
 import Courses from '../types/json'
 
 type AppProps = {}
@@ -37,12 +35,14 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
       data: null,
       chosenCourse: ''
     }
-    this.Fit = this.Fit.bind(this);
     this.ChooseCourse = this.ChooseCourse.bind(this);
   }
 
   async componentDidMount() {
-    const data = await axios.get('/courses');
+    /** Production Code
+     * const data = await axios.get('/courses'); 
+     * **/
+    const data = await axios.get('http://localhost:5000/courses');
     this.setState({ data: data.data });
     const container = document.getElementById('cytoscape');
     this.Cytoscape(container as HTMLElement);
@@ -94,17 +94,17 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
 
     const graphLayout = graph.layout(layout);
 
-    graph.on('tap', 'node', (node) => {
+    graph.on('tap', 'node', (node: cytoscape.EventObject) => {
       this.GenerateGraphParents(node, graph, false);
     });
 
-    graph.on('tap', (event) => {
-      if (event.target == graph) {
+    graph.on('tap', (event: cytoscape.EventObject) => {
+      if (event.target === graph) {
         this.RestoreGraph(graph);
       }
     });
 
-    graph.on('mouseover', 'node', (node) => {
+    graph.on('mouseover', 'node', (node: cytoscape.EventObject) => {
       this.DisplayNodeInfo(node);
     });
 
@@ -127,7 +127,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
 
     //@ts-ignore
     for (var course of this.state.data) {
-      if (course['subject'] == subject && course['number'] == number) {
+      if (course['subject'] === subject && course['number'] === number) {
         console.log(course['description'])
       }
     }
@@ -158,11 +158,15 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
     }
     let others = graph.elements().not(parentNodes);  
     //graph.remove() returns the deleted nodes and edges, so that you can just do cy.add() afterwards
-    const removedNodes = graph.remove(others);  
+    graph.remove(others);  
     graph.elements().makeLayout(layout).run(); 
     graph.fit(graph.elements());
   }
 
+  /**
+   * Resets the graph to its original position.
+   * @param graph - The cytoscape graph object.
+   */
   RestoreGraph(graph: cytoscape.Core) {
     const container = this.state.container;
     if (container) {
@@ -171,6 +175,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
       graph.fit(graph.elements());
     }
   }
+
   /**
    * 
    * @param graph - An empty cytoscape graph with preconfigured settings.
@@ -201,33 +206,21 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
           for (let prereq in course['prereqs'][req]) {
             prereq = course['prereqs'][req][prereq];
       
-          // Creates an edge between the requirements and the current course. 
-          graph.add({
-            group: 'edges',
-            data: {
-              id: `${prereq}-${fullCourse}`,
-              source: prereq,
-              target: fullCourse
-            }
-          });
+            // Creates an edge between the requirements and the current course. 
+            graph.add({
+              group: 'edges',
+              data: {
+                id: `${prereq}-${fullCourse}`,
+                source: prereq,
+                target: fullCourse
+              }
+            });
           // Sets the color of the edge based on the category of prereq it is.
           graph.edges(`edge[id = '${prereq}-${fullCourse}']`).style('line-color', color);
         }
       }
   }
     return graph;
-  }
-
-  /**
-   * Shift the camera view of the graph back to the center upon a button click.
-   */
-  Fit() {
-    const container = this.state.container;
-    if (container) {
-      const graph = this.Cytoscape(container as HTMLElement);
-      const elements = graph.elements();
-      graph.fit(elements);
-    }
   }
 
   ChooseCourse(chosenCourse: string) {
@@ -241,7 +234,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
           const node = graph.getElementById(id);
           this.GenerateGraphParents(node, graph, true, id);
         }  
-      });
+    });
   }
 
   render() {
@@ -250,9 +243,6 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
         <div style={{display: 'flex'}}>
           <div className='graph' id='cytoscape' />
           <div className='search'>
-            {/**
-             * 
-             //@ts-ignore */}
             <Search data={this.state.data} action={this.ChooseCourse}/>
           </div>
         </div>
