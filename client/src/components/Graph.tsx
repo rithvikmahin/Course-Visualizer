@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import cytoscape from 'cytoscape'
-import dagre from 'cytoscape-dagre'
-import axios from 'axios'
-import '../css/style.css'
-import Search from './Search'
-import Courses from '../types/json'
+import cytoscape from 'cytoscape';
+import dagre from 'cytoscape-dagre';
+import axios from 'axios';
+import '../css/style.css';
+import Search from './Search';
+import Courses from '../types/json';
+import Legend from './Legend';
+import NodeInformation from './NodeInformation';
 
 type AppProps = {}
 
@@ -26,14 +28,16 @@ const layout =
     ranker: 'longest-path'
   }
 
-class Graph extends Component<AppProps, {container: HTMLElement | null, data: Courses, chosenCourse: string}> {
+class Graph extends Component<AppProps, {container: HTMLElement | null, data: Courses, chosenCourse: string, displayInfo: boolean, courseInformation: string}> {
 
   constructor(props: AppProps) {
     super(props);
     this.state = {
       container: null,
       data: null,
-      chosenCourse: ''
+      chosenCourse: '',
+      displayInfo: false,
+      courseInformation: ''
     }
     this.ChooseCourse = this.ChooseCourse.bind(this);
   }
@@ -96,6 +100,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
 
     graph.on('tap', 'node', (node: cytoscape.EventObject) => {
       this.GenerateGraphParents(node, graph, false);
+      this.DisplayNodeInfo(node);
     });
 
     graph.on('tap', (event: cytoscape.EventObject) => {
@@ -105,7 +110,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
     });
 
     graph.on('mouseover', 'node', (node: cytoscape.EventObject) => {
-      this.DisplayNodeInfo(node);
+      //this.DisplayNodeInfo(node);
     });
 
     graphLayout.run();
@@ -120,17 +125,23 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
   }
 
   DisplayNodeInfo(node: cytoscape.EventObject) {
+    this.setState({ displayInfo: true });
     const nodeId = node.target.id();
     const subject = nodeId.replace(/[0-9]/g, '');
     const number = nodeId.replace(/[A-Z]/g, '');
-    
 
+    let description;
     //@ts-ignore
-    for (var course of this.state.data) {
-      if (course['subject'] === subject && course['number'] === number) {
-        console.log(course['description'])
+    for (let course of this.state.data) {
+      if (course['subject'] === subject && course['number'] == number) {
+        description = course['description'];
       }
     }
+
+    if (this.state.displayInfo) {
+      this.setState({ courseInformation: description });
+    }
+    console.log('Description: ', description);
   }
 
   /**
@@ -169,6 +180,7 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
    */
   RestoreGraph(graph: cytoscape.Core) {
     const container = this.state.container;
+    this.setState({ displayInfo: false })
     if (container) {
       const graph = this.Cytoscape(container as HTMLElement);
       graph.elements().makeLayout(layout).run(); 
@@ -241,7 +253,10 @@ class Graph extends Component<AppProps, {container: HTMLElement | null, data: Co
     return(
       <div>
         <div style={{display: 'flex'}}>
-          <div className='graph' id='cytoscape' />
+          <div className='graph' id='cytoscape'> 
+          { this.state.displayInfo ? <NodeInformation data={this.state.courseInformation} /> : null }
+          { this.state.displayInfo ? <Legend data={this.state.courseInformation} /> : null }
+          </div>
           <div className='search'>
             <Search data={this.state.data} action={this.ChooseCourse}/>
           </div>

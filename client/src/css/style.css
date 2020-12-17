@@ -10,6 +10,7 @@
     background: #202020;
     flex: 1;
     text-align: center;
+    position: relative;
 }
 
 .search-bar {
@@ -37,4 +38,30 @@
     width: 100px;
     background: #202020;
     text-align: center;
+}
+
+.Legend {
+    font-family: Bahnschrift;
+    background-color: #303030;
+    color: white;
+    width: 25%;
+    margin: auto;
+    border: none;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    text-align: left;
+}
+
+.NodeInformation {
+    font-family: Bahnschrift;
+    background-color: #303030;
+    color: white;
+    width: 25%;
+    margin: auto;
+    border: none;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    text-align: left;
 }
